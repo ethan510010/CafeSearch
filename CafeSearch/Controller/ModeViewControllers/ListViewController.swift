@@ -57,6 +57,130 @@ class ListViewController: UIViewController {
     @objc func getLocationForAPI(notification:Notification){
         if let location = notification.userInfo![NotificationLocation.location], let okLocation = location as? String{
             self.currentCity = okLocation
+            APIManager.shared.fetchCafe(url: URLManager.cafeURL + "/\(self.currentCity)") { (cafes) in
+                self.cafeArray = cafes
+                var cafeDistances = self.cafeArray?.map({ (cafe) -> (Cafe?, CLLocationDistance) in
+                    if let cafeLatitude = CLLocationDegrees(cafe.latitude), let cafeLongitude = CLLocationDegrees(cafe.longitude), let userLocation = self.currentLocation{
+                        let cafeLocation = CLLocation(latitude: cafeLatitude, longitude: cafeLongitude)
+                        let cafeDistance = cafeLocation.distance(from: userLocation)
+                        self.distanceDic[cafe.id] = cafeDistance
+                        return (cafe, cafeDistance)
+                    }else{
+                        return (nil,0)
+                    }
+                })
+                cafeDistances?.sort(by: { (cafeTuple1, cafeTuple2) -> Bool in
+                    return cafeTuple1.1 < cafeTuple2.1
+                })
+                if let cafeDistances = cafeDistances {
+                    if self.conditionFromSettingVCDic == [:] || self.conditionFromSettingVCDic == ["安靜程度": "不限", "座位多寡": "不限", "有無插座": "不限", "Wifi品質": "不限"]{
+                        self.cafeArray = cafeDistances.map({ (cafeTuple) -> Cafe in
+                            return cafeTuple.0!
+                        })
+                    }else{
+                        //避免距離排序亂掉要再存一次
+                        self.cafeArray = cafeDistances.map({ (cafeTuple) -> Cafe in
+                            return cafeTuple.0!
+                        })
+                        //篩選條件
+                        self.conditionFromSettingVCDic.forEach({ (conditionKey,conditionValue) in
+                            if conditionValue != "不限"{
+                                switch conditionKey{
+                                case "Wifi品質":
+                                    if conditionValue == "普通"{
+                                        self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
+                                            if cafe.wifi == 3{
+                                                return true
+                                            }else{
+                                                return false
+                                            }
+                                        }).map({ (cafe) -> Cafe in
+                                            return cafe
+                                        })
+                                    }else if conditionValue == "優良"{
+                                        self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
+                                            if (cafe.wifi) > Double(3){
+                                                return true
+                                            }else{
+                                                return false
+                                            }
+                                        }).map({ (cafe) -> Cafe in
+                                            return cafe
+                                        })
+                                    }
+                                case "安靜程度":
+                                    if conditionValue == "普通"{
+                                        self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
+                                            if cafe.quiet == 3{
+                                                return true
+                                            }else {
+                                                return false
+                                            }
+                                        })
+                                    }else if conditionValue == "優良"{
+                                        self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
+                                            if cafe.quiet > Double(3){
+                                                return true
+                                            }else {
+                                                return false
+                                            }
+                                        })
+                                    }
+                                case "有無插座":
+                                    if conditionValue == "普通"{
+                                        self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
+                                            if cafe.socket == "maybe"{
+                                                return true
+                                            }else{
+                                                return false
+                                            }
+                                        }).map({ (cafe) -> Cafe in
+                                            return cafe
+                                        })
+                                    }else if conditionValue == "優良"{
+                                        self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
+                                            if cafe.socket == "yes"{
+                                                return true
+                                            }else{
+                                                return false
+                                            }
+                                        }).map({ (cafe) -> Cafe in
+                                            return cafe
+                                        })
+                                    }
+                                case "座位多寡":
+                                    if conditionValue == "普通"{
+                                        self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
+                                            if cafe.seat == 3{
+                                                return true
+                                            }else {
+                                                return false
+                                            }
+                                        }).map({ (cafe) -> Cafe in
+                                            return cafe
+                                        })
+                                    }else if conditionValue == "優良"{
+                                        self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
+                                            if cafe.seat > Double(3){
+                                                return true
+                                            }else {
+                                                return false
+                                            }
+                                        }).map({ (cafe) -> Cafe in
+                                            return cafe
+                                        })
+                                    }
+                                default:
+                                    break
+                                }
+                            }
+                        })
+                        
+                    }
+                    self.listTableViewReload()
+                }
+            }
+
         }
     }
     
@@ -66,129 +190,129 @@ class ListViewController: UIViewController {
         self.locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager?.delegate = self
         print("表格",URLManager.cafeURL + "/\(self.currentCity)")
-            APIManager.shared.fetchCafe(url: URLManager.cafeURL + "/\(self.currentCity)") { (cafes) in
-            self.cafeArray = cafes
-                var cafeDistances = self.cafeArray?.map({ (cafe) -> (Cafe?, CLLocationDistance) in
-                if let cafeLatitude = CLLocationDegrees(cafe.latitude), let cafeLongitude = CLLocationDegrees(cafe.longitude), let userLocation = self.currentLocation{
-                    let cafeLocation = CLLocation(latitude: cafeLatitude, longitude: cafeLongitude)
-                    let cafeDistance = cafeLocation.distance(from: userLocation)
-                    self.distanceDic[cafe.id] = cafeDistance
-                    return (cafe, cafeDistance)
-                }else{
-                    return (nil,0)
-                }
-            })
-            cafeDistances?.sort(by: { (cafeTuple1, cafeTuple2) -> Bool in
-                return cafeTuple1.1 < cafeTuple2.1
-            })
-            if let cafeDistances = cafeDistances {
-                if self.conditionFromSettingVCDic == [:] || self.conditionFromSettingVCDic == ["安靜程度": "不限", "座位多寡": "不限", "有無插座": "不限", "Wifi品質": "不限"]{
-                    self.cafeArray = cafeDistances.map({ (cafeTuple) -> Cafe in
-                        return cafeTuple.0!
-                    })
-                }else{
-                    //避免距離排序亂掉要再存一次
-                    self.cafeArray = cafeDistances.map({ (cafeTuple) -> Cafe in
-                        return cafeTuple.0!
-                    })
-                    //篩選條件
-                    self.conditionFromSettingVCDic.forEach({ (conditionKey,conditionValue) in
-                        if conditionValue != "不限"{
-                            switch conditionKey{
-                            case "Wifi品質":
-                                if conditionValue == "普通"{
-                                    self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
-                                        if cafe.wifi == 3{
-                                            return true
-                                        }else{
-                                            return false
-                                        }
-                                    }).map({ (cafe) -> Cafe in
-                                        return cafe
-                                    })
-                                }else if conditionValue == "優良"{
-                                    self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
-                                        if (cafe.wifi) > Double(3){
-                                            return true
-                                        }else{
-                                            return false
-                                        }
-                                    }).map({ (cafe) -> Cafe in
-                                        return cafe
-                                    })
-                                }
-                            case "安靜程度":
-                                if conditionValue == "普通"{
-                                    self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
-                                        if cafe.quiet == 3{
-                                            return true
-                                        }else {
-                                            return false
-                                        }
-                                    })
-                                }else if conditionValue == "優良"{
-                                    self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
-                                        if cafe.quiet > Double(3){
-                                            return true
-                                        }else {
-                                            return false
-                                        }
-                                    })
-                                }
-                            case "有無插座":
-                                if conditionValue == "普通"{
-                                    self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
-                                        if cafe.socket == "maybe"{
-                                            return true
-                                        }else{
-                                            return false
-                                        }
-                                    }).map({ (cafe) -> Cafe in
-                                        return cafe
-                                    })
-                                }else if conditionValue == "優良"{
-                                    self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
-                                        if cafe.socket == "yes"{
-                                            return true
-                                        }else{
-                                            return false
-                                        }
-                                    }).map({ (cafe) -> Cafe in
-                                        return cafe
-                                    })
-                                }
-                            case "座位多寡":
-                                if conditionValue == "普通"{
-                                    self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
-                                        if cafe.seat == 3{
-                                            return true
-                                        }else {
-                                            return false
-                                        }
-                                    }).map({ (cafe) -> Cafe in
-                                        return cafe
-                                    })
-                                }else if conditionValue == "優良"{
-                                    self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
-                                        if cafe.seat > Double(3){
-                                            return true
-                                        }else {
-                                            return false
-                                        }
-                                    }).map({ (cafe) -> Cafe in
-                                        return cafe
-                                    })
-                                }
-                            default:
-                                break
-                            }
-                        }
-                    })
-
-                }
-                self.listTableViewReload()
-            }
-        }
+//            APIManager.shared.fetchCafe(url: URLManager.cafeURL + "/\(self.currentCity)") { (cafes) in
+//            self.cafeArray = cafes
+//                var cafeDistances = self.cafeArray?.map({ (cafe) -> (Cafe?, CLLocationDistance) in
+//                if let cafeLatitude = CLLocationDegrees(cafe.latitude), let cafeLongitude = CLLocationDegrees(cafe.longitude), let userLocation = self.currentLocation{
+//                    let cafeLocation = CLLocation(latitude: cafeLatitude, longitude: cafeLongitude)
+//                    let cafeDistance = cafeLocation.distance(from: userLocation)
+//                    self.distanceDic[cafe.id] = cafeDistance
+//                    return (cafe, cafeDistance)
+//                }else{
+//                    return (nil,0)
+//                }
+//            })
+//            cafeDistances?.sort(by: { (cafeTuple1, cafeTuple2) -> Bool in
+//                return cafeTuple1.1 < cafeTuple2.1
+//            })
+//            if let cafeDistances = cafeDistances {
+//                if self.conditionFromSettingVCDic == [:] || self.conditionFromSettingVCDic == ["安靜程度": "不限", "座位多寡": "不限", "有無插座": "不限", "Wifi品質": "不限"]{
+//                    self.cafeArray = cafeDistances.map({ (cafeTuple) -> Cafe in
+//                        return cafeTuple.0!
+//                    })
+//                }else{
+//                    //避免距離排序亂掉要再存一次
+//                    self.cafeArray = cafeDistances.map({ (cafeTuple) -> Cafe in
+//                        return cafeTuple.0!
+//                    })
+//                    //篩選條件
+//                    self.conditionFromSettingVCDic.forEach({ (conditionKey,conditionValue) in
+//                        if conditionValue != "不限"{
+//                            switch conditionKey{
+//                            case "Wifi品質":
+//                                if conditionValue == "普通"{
+//                                    self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
+//                                        if cafe.wifi == 3{
+//                                            return true
+//                                        }else{
+//                                            return false
+//                                        }
+//                                    }).map({ (cafe) -> Cafe in
+//                                        return cafe
+//                                    })
+//                                }else if conditionValue == "優良"{
+//                                    self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
+//                                        if (cafe.wifi) > Double(3){
+//                                            return true
+//                                        }else{
+//                                            return false
+//                                        }
+//                                    }).map({ (cafe) -> Cafe in
+//                                        return cafe
+//                                    })
+//                                }
+//                            case "安靜程度":
+//                                if conditionValue == "普通"{
+//                                    self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
+//                                        if cafe.quiet == 3{
+//                                            return true
+//                                        }else {
+//                                            return false
+//                                        }
+//                                    })
+//                                }else if conditionValue == "優良"{
+//                                    self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
+//                                        if cafe.quiet > Double(3){
+//                                            return true
+//                                        }else {
+//                                            return false
+//                                        }
+//                                    })
+//                                }
+//                            case "有無插座":
+//                                if conditionValue == "普通"{
+//                                    self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
+//                                        if cafe.socket == "maybe"{
+//                                            return true
+//                                        }else{
+//                                            return false
+//                                        }
+//                                    }).map({ (cafe) -> Cafe in
+//                                        return cafe
+//                                    })
+//                                }else if conditionValue == "優良"{
+//                                    self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
+//                                        if cafe.socket == "yes"{
+//                                            return true
+//                                        }else{
+//                                            return false
+//                                        }
+//                                    }).map({ (cafe) -> Cafe in
+//                                        return cafe
+//                                    })
+//                                }
+//                            case "座位多寡":
+//                                if conditionValue == "普通"{
+//                                    self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
+//                                        if cafe.seat == 3{
+//                                            return true
+//                                        }else {
+//                                            return false
+//                                        }
+//                                    }).map({ (cafe) -> Cafe in
+//                                        return cafe
+//                                    })
+//                                }else if conditionValue == "優良"{
+//                                    self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
+//                                        if cafe.seat > Double(3){
+//                                            return true
+//                                        }else {
+//                                            return false
+//                                        }
+//                                    }).map({ (cafe) -> Cafe in
+//                                        return cafe
+//                                    })
+//                                }
+//                            default:
+//                                break
+//                            }
+//                        }
+//                    })
+//
+//                }
+//                self.listTableViewReload()
+//            }
+//        }
 
     }
     override func didReceiveMemoryWarning() {
@@ -233,24 +357,24 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource{
     }
 }
 extension ListViewController: CLLocationManagerDelegate{
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse{
-            guard let coordinate = manager.location?.coordinate else {return}
-            let userLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-            let userLatitude = userLocation.coordinate.latitude
-            let userLongitude = userLocation.coordinate.longitude
-            //使用者現在位置
-            self.currentLocation = userLocation
-            //把座標轉成地址
-            CLGeocoder().reverseGeocodeLocation(userLocation) { (placemarkArray, error) in
-                if error != nil{
-                    return
-                }
-                guard let currentAddress = placemarkArray?.first else {return}
-                guard let currentPostCode = currentAddress.postalCode else {return}
-                let currentCity = currentPostCode.convertPostcodeToRegion(postCode: Int(currentPostCode)!)
-//                self.currentCity = currentCity.lowercased()
-            }
-        }
-    }
+//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//        if status == .authorizedWhenInUse{
+//            guard let coordinate = manager.location?.coordinate else {return}
+//            let userLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+//            let userLatitude = userLocation.coordinate.latitude
+//            let userLongitude = userLocation.coordinate.longitude
+//            //使用者現在位置
+//            self.currentLocation = userLocation
+//            //把座標轉成地址
+//            CLGeocoder().reverseGeocodeLocation(userLocation) { (placemarkArray, error) in
+//                if error != nil{
+//                    return
+//                }
+//                guard let currentAddress = placemarkArray?.first else {return}
+//                guard let currentPostCode = currentAddress.postalCode else {return}
+//                let currentCity = currentPostCode.convertPostcodeToRegion(postCode: Int(currentPostCode)!)
+////                self.currentCity = currentCity.lowercased()
+//            }
+//        }
+//    }
 }
