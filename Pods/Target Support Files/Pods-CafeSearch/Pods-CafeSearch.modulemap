@@ -1,0 +1,6 @@
+framework module Pods_CafeSearch {
+  umbrella header "Pods-CafeSearch-umbrella.h"
+
+  export *
+  module * { export * }
+}
