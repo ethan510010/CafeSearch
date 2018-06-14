@@ -13,6 +13,8 @@ import CoreLocation
 class MapModeViewController: UIViewController {
 
     @IBOutlet weak var mapView: GMSMapView!
+    @IBOutlet weak var backgroundImageView: UIImageView!
+    
     
     //利用id存成一個對應的距離dictionary
     var distanceDic = [String:Double]()
@@ -43,6 +45,9 @@ class MapModeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        backgroundImageView.layer.opacity = 0.5
+        mapView.layer.cornerRadius = 20
+        mapView.layer.masksToBounds = true
         self.locationManager = CLLocationManager()
         self.locationManager?.delegate = self
         self.locationManager?.requestWhenInUseAuthorization()

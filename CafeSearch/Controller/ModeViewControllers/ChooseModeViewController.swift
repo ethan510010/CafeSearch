@@ -20,6 +20,7 @@ class ChooseModeViewController: UIViewController {
         performSegue(withIdentifier: SegueManager.performSearchConditionVC, sender: nil)
     }
     
+    @IBOutlet weak var bgImageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var modeSegment: UISegmentedControl!
@@ -36,11 +37,14 @@ class ChooseModeViewController: UIViewController {
     
     @IBAction func modeChooseAction(_ sender: UISegmentedControl) {
         self.scrollPage = sender.selectedSegmentIndex
-        scrollView.setContentOffset(CGPoint(x: self.view.frame.width * CGFloat(scrollPage), y: 0), animated: true)
+        DispatchQueue.main.async {
+            self.scrollView.setContentOffset(CGPoint(x: self.view.frame.width * CGFloat(self.scrollPage), y: 0), animated: true)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bgImageView.layer.opacity = 1
         self.locationManager = CLLocationManager()
         self.locationManager?.delegate = self
         self.locationManager?.requestWhenInUseAuthorization()

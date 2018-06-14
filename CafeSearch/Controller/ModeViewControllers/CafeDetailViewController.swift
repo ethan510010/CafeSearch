@@ -16,6 +16,9 @@ class CafeDetailViewController: UIViewController {
     @IBOutlet weak var seatLabel: UILabel!
     @IBOutlet weak var socketLabel: UILabel!
     @IBOutlet weak var googleMapView: GMSMapView!
+    @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet weak var intermediateView: UIView!
+    
     
     //選擇的咖啡店
     var selectedCafeInformationFromCafeListsVC:Cafe?
@@ -41,6 +44,10 @@ class CafeDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        backgroundImageView.layer.opacity = 0.7
+        intermediateView.layer.opacity = 0.5
+        googleMapView.layer.cornerRadius = googleMapView.frame.width / 10
+        googleMapView.layer.masksToBounds = true
         guard let selectedCafe = self.selectedCafeInformationFromCafeListsVC else {return}
         guard let cafeLatitude = CLLocationDegrees(selectedCafe.latitude) else {return}
         guard let cafeLogitude = CLLocationDegrees(selectedCafe.longitude) else {return}
@@ -79,4 +86,8 @@ class CafeDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
 }

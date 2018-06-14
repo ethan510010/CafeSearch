@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CC38A7E63DD2B0B07A474B7B /* Pods_CafeSearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0D749AA18E0F703AD339720 /* Pods_CafeSearch.framework */; };
 		D6254FD520D22D3200FBC1AF /* CornerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6254FD420D22D3200FBC1AF /* CornerButton.swift */; };
+		D6254FD720D26ABE00FBC1AF /* CornerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6254FD620D26ABE00FBC1AF /* CornerLabel.swift */; };
 		D6377FC6209E8DBB00403442 /* SearchConditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6377FC5209E8DBB00403442 /* SearchConditionViewController.swift */; };
 		D6377FC8209E92F500403442 /* SegueKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6377FC7209E92F500403442 /* SegueKey.swift */; };
 		D6377FCB209E962300403442 /* Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6377FCA209E962300403442 /* Condition.swift */; };
@@ -49,6 +50,7 @@
 		53B875DEF1F4587FCA57B0E9 /* Pods-CafeSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CafeSearch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CafeSearch/Pods-CafeSearch.debug.xcconfig"; sourceTree = "<group>"; };
 		B0D749AA18E0F703AD339720 /* Pods_CafeSearch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CafeSearch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6254FD420D22D3200FBC1AF /* CornerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerButton.swift; sourceTree = "<group>"; };
+		D6254FD620D26ABE00FBC1AF /* CornerLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerLabel.swift; sourceTree = "<group>"; };
 		D6377FC5209E8DBB00403442 /* SearchConditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchConditionViewController.swift; sourceTree = "<group>"; };
 		D6377FC7209E92F500403442 /* SegueKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueKey.swift; sourceTree = "<group>"; };
 		D6377FCA209E962300403442 /* Condition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Condition.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				D664B22120A2E8D200AC7A7B /* ResetCityCollectionViewCell.swift */,
 				D6F2029F20A488EF00EC640F /* CafeListCell.swift */,
 				D6254FD420D22D3200FBC1AF /* CornerButton.swift */,
+				D6254FD620D26ABE00FBC1AF /* CornerLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				D6E6811220A4518500A7CCC2 /* ChooseModeViewController.swift in Sources */,
 				D66924CD20A7DCF400BEC618 /* CafeDetailViewController.swift in Sources */,
 				D664B21E20A2885300AC7A7B /* City.swift in Sources */,
+				D6254FD720D26ABE00FBC1AF /* CornerLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

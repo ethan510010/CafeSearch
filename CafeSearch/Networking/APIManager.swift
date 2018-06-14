@@ -10,10 +10,8 @@ import Foundation
 
 class APIManager{
     
-    
     static let shared = APIManager()
-    
-    
+
     func fetchCafe(url:String, completion: @escaping ([Cafe]?)->Void){
         guard let url = URL(string: url) else {return}
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in

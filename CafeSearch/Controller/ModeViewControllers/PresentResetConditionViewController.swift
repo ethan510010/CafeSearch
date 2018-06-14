@@ -23,6 +23,8 @@ class PresentResetConditionViewController: UIViewController {
     var resetSelectedCity:City? = nil
     
     @IBOutlet weak var cityCollectionView: UICollectionView!
+    @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet weak var intermediateView: UIView!
     
     
     //預設先給北部的城市
@@ -69,6 +71,8 @@ class PresentResetConditionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        intermediateView.layer.opacity = 0.5
+        backgroundImageView.layer.opacity = 1
         resetConditionTableView.delegate = self
         resetConditionTableView.dataSource = self
         resetConditionTableView.separatorStyle = .none
@@ -96,6 +100,10 @@ extension PresentResetConditionViewController: UITableViewDelegate, UITableViewD
         cell.update(condition: self.resetConditionArray[indexPath.row])
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return (resetConditionTableView.frame.height / 4)
+    }
 }
 //接受來自下面條件的傳值所設定的delegate
 extension PresentResetConditionViewController: ResetConditionSegmentDidSelectedDelegate{
@@ -105,7 +113,7 @@ extension PresentResetConditionViewController: ResetConditionSegmentDidSelectedD
     }
  
 }
-extension PresentResetConditionViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+extension PresentResetConditionViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.chooseCityAreaArray.count
@@ -122,11 +130,14 @@ extension PresentResetConditionViewController: UICollectionViewDelegate, UIColle
         for eachCity in self.chooseCityAreaArray{
             eachCity.isSelected = false
         }
-        var chooseCity = self.chooseCityAreaArray[indexPath.item]
+        let chooseCity = self.chooseCityAreaArray[indexPath.item]
         chooseCity.isSelected = true
         self.cityCollectionView.reloadData()
         //傳值要用的，所以把選到的放到全局變數
         self.resetSelectedCity = chooseCity
     }
-   
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width / 4, height: collectionView.frame.height / 6)
+    }
 }
