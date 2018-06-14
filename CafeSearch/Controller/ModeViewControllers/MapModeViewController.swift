@@ -48,16 +48,25 @@ class MapModeViewController: UIViewController {
         self.locationManager?.requestWhenInUseAuthorization()
         //接收最一開始定位後傳過來的通知
         NotificationCenter.default.addObserver(self, selector: #selector(getLocationForAPI), name: .getLocationNotification, object: nil)
-        
         //接收傳過來的條件與城市通知
         NotificationCenter.default.addObserver(self, selector: #selector(getConditionAndCityNotification), name: .passConditionToMapVCAndListVCNotification, object: nil)
     }
     
+    
     @objc func getLocationForAPI(notification:Notification){
-        if let location = notification.userInfo![NotificationLocation.location], let okLocation = location as? String{
-            self.currentCity = okLocation
-            //進行網路請求
-            self.sendAPIRequest()
+        if let location = notification.userInfo![NotificationLocation.location], let okLocation = location as? CLLocation{
+            CLGeocoder().reverseGeocodeLocation(okLocation) { (placemarkArray, error) in
+                guard let currentAddress = placemarkArray?.first else {return}
+                guard let currentPostCode = currentAddress.postalCode else {return}
+                let currentCity = currentPostCode.convertPostcodeToRegion(postCode: Int(currentPostCode)!)
+                self.currentCity = currentCity
+                print("List VC",self.currentCity)
+                //進行網路請求
+                self.locationManager = CLLocationManager()
+                self.locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+                self.locationManager?.delegate = self
+                self.sendAPIRequest()
+            }
         }
     }
     
@@ -217,7 +226,7 @@ class MapModeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        self.sendAPIRequest()
+        self.sendAPIRequest()
     }
 
     override func didReceiveMemoryWarning() {
@@ -226,23 +235,23 @@ class MapModeViewController: UIViewController {
     }
 }
 extension MapModeViewController: CLLocationManagerDelegate{
-//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-//        if status == .authorizedWhenInUse{
-//            guard let coordinate = manager.location?.coordinate else {return}
-//            let userLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-//            let userLatitude = userLocation.coordinate.latitude
-//            let userLongitude = userLocation.coordinate.longitude
-//            let camera = GMSCameraPosition.camera(withLatitude: userLatitude, longitude: userLongitude, zoom: 16.0)
-//            mapView.camera = camera
-//            mapView.isMyLocationEnabled = true
-//            self.currentLocation = userLocation
-//            //把座標轉成地址
-//            CLGeocoder().reverseGeocodeLocation(userLocation) { (placemarkArray, error) in
-//                guard let currentAddress = placemarkArray?.first else {return}
-//                guard let currentPostCode = currentAddress.postalCode else {return}
-//                let currentCity = currentPostCode.convertPostcodeToRegion(postCode: Int(currentPostCode)!)
-////                self.currentCity = currentCity.lowercased()
-//            }
-//        }
-//    }
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse{
+            guard let coordinate = manager.location?.coordinate else {return}
+            let userLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            let userLatitude = userLocation.coordinate.latitude
+            let userLongitude = userLocation.coordinate.longitude
+            let camera = GMSCameraPosition.camera(withLatitude: userLatitude, longitude: userLongitude, zoom: 16.0)
+            mapView.camera = camera
+            mapView.isMyLocationEnabled = true
+            self.currentLocation = userLocation
+            //把座標轉成地址
+            CLGeocoder().reverseGeocodeLocation(userLocation) { (placemarkArray, error) in
+                guard let currentAddress = placemarkArray?.first else {return}
+                guard let currentPostCode = currentAddress.postalCode else {return}
+                let currentCity = currentPostCode.convertPostcodeToRegion(postCode: Int(currentPostCode)!)
+//                self.currentCity = currentCity.lowercased()
+            }
+        }
+    }
 }

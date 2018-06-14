@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CC38A7E63DD2B0B07A474B7B /* Pods_CafeSearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0D749AA18E0F703AD339720 /* Pods_CafeSearch.framework */; };
+		D6254FD520D22D3200FBC1AF /* CornerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6254FD420D22D3200FBC1AF /* CornerButton.swift */; };
 		D6377FC6209E8DBB00403442 /* SearchConditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6377FC5209E8DBB00403442 /* SearchConditionViewController.swift */; };
 		D6377FC8209E92F500403442 /* SegueKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6377FC7209E92F500403442 /* SegueKey.swift */; };
 		D6377FCB209E962300403442 /* Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6377FCA209E962300403442 /* Condition.swift */; };
@@ -47,6 +48,7 @@
 /* Begin PBXFileReference section */
 		53B875DEF1F4587FCA57B0E9 /* Pods-CafeSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CafeSearch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CafeSearch/Pods-CafeSearch.debug.xcconfig"; sourceTree = "<group>"; };
 		B0D749AA18E0F703AD339720 /* Pods_CafeSearch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CafeSearch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6254FD420D22D3200FBC1AF /* CornerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerButton.swift; sourceTree = "<group>"; };
 		D6377FC5209E8DBB00403442 /* SearchConditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchConditionViewController.swift; sourceTree = "<group>"; };
 		D6377FC7209E92F500403442 /* SegueKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueKey.swift; sourceTree = "<group>"; };
 		D6377FCA209E962300403442 /* Condition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Condition.swift; sourceTree = "<group>"; };
@@ -104,6 +106,20 @@
 				B0D749AA18E0F703AD339720 /* Pods_CafeSearch.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D6254FD320D22CE400FBC1AF /* TestViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D6C038F7209B4E8100CA391A /* SearchViewController.swift */,
+				D6C03908209B4FB700CA391A /* CafeListViewController.swift */,
+				D63C2BA6209C0B0D00E75130 /* GoogleMapViewController.swift */,
+				D6377FC5209E8DBB00403442 /* SearchConditionViewController.swift */,
+				D664B21B20A2867E00AC7A7B /* PopoverCityViewController.swift */,
+				D6DC6FB520A1516E0079DD60 /* PanoViewController.swift */,
+				D6BBF7BD209FE42B008EC740 /* WebViewController.swift */,
+			);
+			path = TestViewControllers;
 			sourceTree = "<group>";
 		};
 		D6377FC9209E92F900403442 /* IDManager */ = {
@@ -176,13 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				D6E6811720A4643C00A7CCC2 /* ModeViewControllers */,
-				D6C038F7209B4E8100CA391A /* SearchViewController.swift */,
-				D6C03908209B4FB700CA391A /* CafeListViewController.swift */,
-				D63C2BA6209C0B0D00E75130 /* GoogleMapViewController.swift */,
-				D6377FC5209E8DBB00403442 /* SearchConditionViewController.swift */,
-				D664B21B20A2867E00AC7A7B /* PopoverCityViewController.swift */,
-				D6DC6FB520A1516E0079DD60 /* PanoViewController.swift */,
-				D6BBF7BD209FE42B008EC740 /* WebViewController.swift */,
+				D6254FD320D22CE400FBC1AF /* TestViewControllers */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -196,6 +206,7 @@
 				D664B21F20A28C0900AC7A7B /* CityCollectionViewCell.swift */,
 				D664B22120A2E8D200AC7A7B /* ResetCityCollectionViewCell.swift */,
 				D6F2029F20A488EF00EC640F /* CafeListCell.swift */,
+				D6254FD420D22D3200FBC1AF /* CornerButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -363,6 +374,7 @@
 				D6377FC6209E8DBB00403442 /* SearchConditionViewController.swift in Sources */,
 				D6C038F6209B4E8100CA391A /* AppDelegate.swift in Sources */,
 				D63C2BAC209C343300E75130 /* StringExtension.swift in Sources */,
+				D6254FD520D22D3200FBC1AF /* CornerButton.swift in Sources */,
 				D6377FCD209E97BE00403442 /* ConditionTableViewCell.swift in Sources */,
 				D6C03909209B4FB700CA391A /* CafeListViewController.swift in Sources */,
 				D6C0390E209B540A00CA391A /* CafeModel.swift in Sources */,
@@ -521,7 +533,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 47R4BK8PQH;
+				DEVELOPMENT_TEAM = B2H8R699XY;
 				INFOPLIST_FILE = CafeSearch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -541,7 +553,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 47R4BK8PQH;
+				DEVELOPMENT_TEAM = B2H8R699XY;
 				INFOPLIST_FILE = CafeSearch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Kmf-gU-CC5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Kmf-gU-CC5">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -719,7 +719,7 @@
                                     <action selector="modeSegment:" destination="7Sj-B0-Gbl" eventType="valueChanged" id="9SY-Wq-Jqm"/>
                                 </connections>
                             </segmentedControl>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IKW-YU-KMD">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IKW-YU-KMD">
                                 <rect key="frame" x="0.0" y="104" width="375" height="563"/>
                             </scrollView>
                         </subviews>
@@ -758,17 +758,20 @@
             <objects>
                 <viewController storyboardIdentifier="MapVC" id="ft7-9b-3qu" customClass="MapModeViewController" customModule="CafeSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AIM-X4-ebO">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pcd-xq-Q9r" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tfk-YH-erW">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tfk-YH-erW" customClass="CornerButton" customModule="CafeSearch" customModuleProvider="target">
                                 <rect key="frame" x="242" y="520" width="123" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="找出最近的咖啡廳"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="找出最近的咖啡廳">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="findNearestCafeAction:" destination="ft7-9b-3qu" eventType="touchUpInside" id="zVc-xw-cjS"/>
                                 </connections>
@@ -776,37 +779,41 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="pcd-xq-Q9r" firstAttribute="bottom" secondItem="CV9-E8-B0k" secondAttribute="bottom" id="Aj1-hG-qAx"/>
-                            <constraint firstItem="pcd-xq-Q9r" firstAttribute="top" secondItem="AIM-X4-ebO" secondAttribute="top" id="jjr-JB-Fuq"/>
-                            <constraint firstItem="pcd-xq-Q9r" firstAttribute="trailing" secondItem="CV9-E8-B0k" secondAttribute="trailing" id="scd-vn-EKI"/>
-                            <constraint firstItem="pcd-xq-Q9r" firstAttribute="leading" secondItem="CV9-E8-B0k" secondAttribute="leading" id="z4t-ZR-p1z"/>
+                            <constraint firstItem="CV9-E8-B0k" firstAttribute="bottom" secondItem="pcd-xq-Q9r" secondAttribute="bottom" id="ERr-Zf-61n"/>
+                            <constraint firstItem="pcd-xq-Q9r" firstAttribute="height" secondItem="AIM-X4-ebO" secondAttribute="height" id="LOp-rC-da1"/>
+                            <constraint firstItem="pcd-xq-Q9r" firstAttribute="centerX" secondItem="CV9-E8-B0k" secondAttribute="centerX" id="RVa-gS-gIf"/>
+                            <constraint firstItem="pcd-xq-Q9r" firstAttribute="width" secondItem="AIM-X4-ebO" secondAttribute="width" id="bxK-6o-adc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="CV9-E8-B0k"/>
                     </view>
                     <navigationItem key="navigationItem" id="ulE-qm-r8Q"/>
-                    <size key="freeformSize" width="375" height="617"/>
                     <connections>
                         <outlet property="mapView" destination="pcd-xq-Q9r" id="Wfp-Kq-ZF8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zp8-uW-AeB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1889" y="-2499"/>
+            <point key="canvasLocation" x="1905" y="-2524"/>
         </scene>
         <!--List View Controller-->
         <scene sceneID="z9v-Xe-JUC">
             <objects>
                 <viewController storyboardIdentifier="ListVC" id="oc8-KB-GvT" customClass="ListViewController" customModule="CafeSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZJA-F9-Bw7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="C07-wO-NOt">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="100" translatesAutoresizingMaskIntoConstraints="NO" id="C07-wO-NOt">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="Exl-IM-tfO">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CafeListCell" rowHeight="120" id="M2c-qy-ykU" customClass="CafeListCell" customModule="CafeSearch" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="120"/>
+                                        <rect key="frame" x="0.0" y="72" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="M2c-qy-ykU" id="d8v-ET-IAe">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
@@ -846,23 +853,23 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="C07-wO-NOt" firstAttribute="top" secondItem="ZJA-F9-Bw7" secondAttribute="top" id="Ah5-Wv-5va"/>
-                            <constraint firstItem="C07-wO-NOt" firstAttribute="leading" secondItem="MbM-M4-oAd" secondAttribute="leading" id="LuQ-3D-9YY"/>
-                            <constraint firstItem="C07-wO-NOt" firstAttribute="trailing" secondItem="MbM-M4-oAd" secondAttribute="trailing" id="Q1f-8U-Uje"/>
-                            <constraint firstItem="C07-wO-NOt" firstAttribute="bottom" secondItem="ZJA-F9-Bw7" secondAttribute="bottom" id="W21-7d-q00"/>
+                            <constraint firstItem="C07-wO-NOt" firstAttribute="top" secondItem="ZJA-F9-Bw7" secondAttribute="top" id="A1L-Ml-rLU"/>
+                            <constraint firstItem="C07-wO-NOt" firstAttribute="trailing" secondItem="MbM-M4-oAd" secondAttribute="trailing" id="Fuq-ZV-2l7"/>
+                            <constraint firstItem="C07-wO-NOt" firstAttribute="bottom" secondItem="MbM-M4-oAd" secondAttribute="bottom" id="Tba-oJ-7C9"/>
+                            <constraint firstItem="C07-wO-NOt" firstAttribute="leading" secondItem="MbM-M4-oAd" secondAttribute="leading" id="Xap-FR-0jV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MbM-M4-oAd"/>
                     </view>
                     <navigationItem key="navigationItem" id="sne-fO-dRg"/>
-                    <size key="freeformSize" width="375" height="617"/>
                     <connections>
                         <outlet property="cafeListTableView" destination="C07-wO-NOt" id="szl-dJ-RBd"/>
+                        <outlet property="searchBar" destination="Exl-IM-tfO" id="ndl-uf-XbG"/>
                         <segue destination="PnP-Vm-JD1" kind="show" identifier="performCafeDetail" id="6CL-8z-byF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UL9-ks-mmK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2770" y="-2499"/>
+            <point key="canvasLocation" x="2692" y="-2524"/>
         </scene>
         <!--Cafe Detail View Controller-->
         <scene sceneID="ahC-o5-1hk">
@@ -873,16 +880,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="6g6-L5-BOV">
-                                <rect key="frame" x="0.0" y="133.5" width="375" height="20.5"/>
+                                <rect key="frame" x="19" y="133.5" width="337.5" height="20.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wifi品質: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZbF-wP-K5e">
-                                        <rect key="frame" x="0.0" y="0.0" width="181.5" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="163" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有無插座: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xv6-Wn-PQD">
-                                        <rect key="frame" x="181.5" y="0.0" width="193.5" height="20.5"/>
+                                        <rect key="frame" x="163" y="0.0" width="174.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -890,16 +897,16 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="5PU-XE-XW4">
-                                <rect key="frame" x="0.0" y="200" width="375" height="20.5"/>
+                                <rect key="frame" x="19" y="200" width="337.5" height="20.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="安靜程度:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jSP-ai-78l">
-                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="169" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="座位多寡:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nMq-pB-9hS">
-                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="20.5"/>
+                                        <rect key="frame" x="169" y="0.0" width="168.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -910,8 +917,8 @@
                                 <rect key="frame" x="0.0" y="267" width="375" height="333.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahs-RQ-riY">
-                                <rect key="frame" x="0.0" y="600.5" width="375" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahs-RQ-riY" customClass="CornerButton" customModule="CafeSearch" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="606.5" width="375" height="30"/>
                                 <state key="normal" title="導航"/>
                                 <connections>
                                     <action selector="navigateCafeOnGoogleMap:" destination="PnP-Vm-JD1" eventType="touchUpInside" id="Yy8-5w-IeO"/>
@@ -926,12 +933,12 @@
                             <constraint firstItem="5UW-fr-0g9" firstAttribute="trailing" secondItem="Pfl-Az-lA2" secondAttribute="trailing" id="Dja-In-wZ0"/>
                             <constraint firstItem="5UW-fr-0g9" firstAttribute="leading" secondItem="Pfl-Az-lA2" secondAttribute="leading" id="Iov-95-MIt"/>
                             <constraint firstItem="6g6-L5-BOV" firstAttribute="top" secondItem="Pfl-Az-lA2" secondAttribute="bottom" multiplier="0.2" id="MP0-ki-Hg9"/>
-                            <constraint firstItem="6g6-L5-BOV" firstAttribute="width" secondItem="CJG-pw-j1O" secondAttribute="width" id="QDc-Iq-eUn"/>
+                            <constraint firstItem="6g6-L5-BOV" firstAttribute="width" secondItem="CJG-pw-j1O" secondAttribute="width" multiplier="0.9" id="QDc-Iq-eUn"/>
                             <constraint firstItem="ahs-RQ-riY" firstAttribute="leading" secondItem="Pfl-Az-lA2" secondAttribute="leading" id="V30-bm-4uN"/>
                             <constraint firstItem="5PU-XE-XW4" firstAttribute="top" secondItem="Pfl-Az-lA2" secondAttribute="bottom" multiplier="0.3" id="cS0-mG-lzF"/>
-                            <constraint firstItem="ahs-RQ-riY" firstAttribute="top" secondItem="5UW-fr-0g9" secondAttribute="bottom" id="cg8-az-NY3"/>
+                            <constraint firstItem="ahs-RQ-riY" firstAttribute="top" secondItem="5UW-fr-0g9" secondAttribute="bottom" multiplier="1.01" id="cg8-az-NY3"/>
                             <constraint firstItem="ahs-RQ-riY" firstAttribute="centerX" secondItem="CJG-pw-j1O" secondAttribute="centerX" id="gkX-Tz-NlK"/>
-                            <constraint firstItem="5PU-XE-XW4" firstAttribute="width" secondItem="CJG-pw-j1O" secondAttribute="width" id="oek-7J-mkU"/>
+                            <constraint firstItem="5PU-XE-XW4" firstAttribute="width" secondItem="CJG-pw-j1O" secondAttribute="width" multiplier="0.9" id="oek-7J-mkU"/>
                             <constraint firstItem="5UW-fr-0g9" firstAttribute="height" secondItem="CJG-pw-j1O" secondAttribute="height" multiplier="0.5" id="vnB-Bi-4Sw"/>
                             <constraint firstItem="5PU-XE-XW4" firstAttribute="centerX" secondItem="CJG-pw-j1O" secondAttribute="centerX" id="w8L-lk-CPD"/>
                             <constraint firstItem="5UW-fr-0g9" firstAttribute="top" secondItem="Pfl-Az-lA2" secondAttribute="bottom" multiplier="0.4" id="wye-cO-k8f"/>
@@ -948,7 +955,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ufy-nL-uoW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3608.8000000000002" y="-2499.400299850075"/>
+            <point key="canvasLocation" x="3618" y="-2525"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="AOx-OI-bIc">

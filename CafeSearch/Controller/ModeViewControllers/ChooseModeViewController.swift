@@ -31,6 +31,8 @@ class ChooseModeViewController: UIViewController {
     var locationManager: CLLocationManager?
     //下方ScrollView切換
     var scrollPage:Int = 0
+    var mapVC: MapModeViewController!
+    var listVC: ListViewController!
     
     @IBAction func modeChooseAction(_ sender: UISegmentedControl) {
         self.scrollPage = sender.selectedSegmentIndex
@@ -42,30 +44,60 @@ class ChooseModeViewController: UIViewController {
         self.locationManager = CLLocationManager()
         self.locationManager?.delegate = self
         self.locationManager?.requestWhenInUseAuthorization()
-        print("最外面的ViewController",self.currentCity)
         self.scrollView.delegate = self
         self.scrollView.showsVerticalScrollIndicator = false
         self.scrollView.showsHorizontalScrollIndicator = false
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        self.scrollView.contentSize = CGSize(width: self.view.frame.width * 2, height: self.view.frame.height * (617/667))
+        
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         //把mapVC加進去
-        let mapVC = mainStoryboard.instantiateViewController(withIdentifier: StoryboardIDManager.mapVC) as! MapModeViewController
-        self.addChildViewController(mapVC)
+        mapVC = mainStoryboard.instantiateViewController(withIdentifier: StoryboardIDManager.mapVC) as! MapModeViewController
+        self.addChildViewController(mapVC!)
         self.scrollView.addSubview(mapVC.view)
         mapVC.didMove(toParentViewController: self)
         //把listVC加進去
-        let listVC = mainStoryboard.instantiateViewController(withIdentifier: StoryboardIDManager.listVC) as! ListViewController
+        listVC = mainStoryboard.instantiateViewController(withIdentifier: StoryboardIDManager.listVC) as! ListViewController
         self.addChildViewController(listVC)
         self.scrollView.addSubview(listVC.view)
         listVC.didMove(toParentViewController: self)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        self.scrollView.contentSize = CGSize(width: self.view.frame.width * 2, height: self.view.frame.height * (563/667))
+        //        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        //        //把mapVC加進去
+        //        let mapVC = mainStoryboard.instantiateViewController(withIdentifier: StoryboardIDManager.mapVC) as! MapModeViewController
+        //        self.addChildViewController(mapVC)
+        //        self.scrollView.addSubview(mapVC.view)
+        //        mapVC.didMove(toParentViewController: self)
+        //        //把listVC加進去
+        //        let listVC = mainStoryboard.instantiateViewController(withIdentifier: StoryboardIDManager.listVC) as! ListViewController
+        //        self.addChildViewController(listVC)
+        //        self.scrollView.addSubview(listVC.view)
+        //        listVC.didMove(toParentViewController: self)
         var frameOfListVC = listVC.view.frame
         frameOfListVC.origin.x = self.view.frame.width
         listVC.view.frame = frameOfListVC
     }
+    
+//    override func viewWillLayoutSubviews() {
+//        super.viewWillLayoutSubviews()
+//
+//        self.scrollView.contentSize = CGSize(width: self.view.frame.width * 2, height: self.view.frame.height * (563/667))
+////        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+////        //把mapVC加進去
+////        let mapVC = mainStoryboard.instantiateViewController(withIdentifier: StoryboardIDManager.mapVC) as! MapModeViewController
+////        self.addChildViewController(mapVC)
+////        self.scrollView.addSubview(mapVC.view)
+////        mapVC.didMove(toParentViewController: self)
+////        //把listVC加進去
+////        let listVC = mainStoryboard.instantiateViewController(withIdentifier: StoryboardIDManager.listVC) as! ListViewController
+////        self.addChildViewController(listVC)
+////        self.scrollView.addSubview(listVC.view)
+////        listVC.didMove(toParentViewController: self)
+//        var frameOfListVC = listVC.view.frame
+//        frameOfListVC.origin.x = self.view.frame.width
+//        listVC.view.frame = frameOfListVC
+//    }
     
     
     override func didReceiveMemoryWarning() {
@@ -81,39 +113,46 @@ extension ChooseModeViewController: UIScrollViewDelegate{
     }
 }
 extension ChooseModeViewController: CLLocationManagerDelegate{
-//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-//        if status == .authorizedWhenInUse{
-//            guard let coordinate = manager.location?.coordinate else {return}
-//            let userLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-//            let userLatitude = userLocation.coordinate.latitude
-//            let userLongitude = userLocation.coordinate.longitude
-//            self.currentLocation = userLocation
-//            //把座標轉成地址
-//            CLGeocoder().reverseGeocodeLocation(userLocation) { (placemarkArray, error) in
-//                guard let currentAddress = placemarkArray?.first else {return}
-//                guard let currentPostCode = currentAddress.postalCode else {return}
-//                let currentCity = currentPostCode.convertPostcodeToRegion(postCode: Int(currentPostCode)!)
-//                self.currentCity = currentCity.lowercased()
-//                //抓到位置後發出通知
-//                NotificationCenter.default.post(name: .getLocationNotification, object: nil, userInfo: [NotificationLocation.location : userLocation])
-//            }
+        func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+            if status == .authorizedWhenInUse{
+                
+//                self.locationManager?.requestLocation()
+                
+                guard let coordinate = manager.location?.coordinate else {return}
+                let userLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                let userLatitude = userLocation.coordinate.latitude
+                let userLongitude = userLocation.coordinate.longitude
+                self.currentLocation = userLocation
+                //把座標轉成地址
+                CLGeocoder().reverseGeocodeLocation(userLocation) { (placemarkArray, error) in
+                    guard let currentAddress = placemarkArray?.first else {return}
+                    guard let currentPostCode = currentAddress.postalCode else {return}
+                    let currentCity = currentPostCode.convertPostcodeToRegion(postCode: Int(currentPostCode)!)
+                    self.currentCity = currentCity.lowercased()
+                    print("抓到城市",self.currentCity)
+                    //抓到位置後發出通知
+                    NotificationCenter.default.post(name: .getLocationNotification, object: nil, userInfo: [NotificationLocation.location : userLocation])
+                }
+            }
+        }
+    
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        self.locationManager?.requestLocation()
+//        let coordinate = locations[0].coordinate
+//        let userLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+//        let userLatitude = userLocation.coordinate.latitude
+//        let userLongitude = userLocation.coordinate.longitude
+//        self.currentLocation = userLocation
+//        //把座標轉成地址
+//        CLGeocoder().reverseGeocodeLocation(userLocation) { (placemarkArray, error) in
+//            guard let currentAddress = placemarkArray?.first else {return}
+//            guard let currentPostCode = currentAddress.postalCode else {return}
+//            let currentCity = currentPostCode.convertPostcodeToRegion(postCode: Int(currentPostCode)!)
+//            self.currentCity = currentCity.lowercased()
+//            //抓到位置後發出通知
+//            NotificationCenter.default.post(name: .getLocationNotification, object: nil, userInfo: [NotificationLocation.location : userLocation])
 //        }
 //    }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let coordinate = locations[0].coordinate
-        let userLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        let userLatitude = userLocation.coordinate.latitude
-        let userLongitude = userLocation.coordinate.longitude
-        self.currentLocation = userLocation
-        //把座標轉成地址
-        CLGeocoder().reverseGeocodeLocation(userLocation) { (placemarkArray, error) in
-            guard let currentAddress = placemarkArray?.first else {return}
-            guard let currentPostCode = currentAddress.postalCode else {return}
-            let currentCity = currentPostCode.convertPostcodeToRegion(postCode: Int(currentPostCode)!)
-            self.currentCity = currentCity.lowercased()
-            //抓到位置後發出通知
-            NotificationCenter.default.post(name: .getLocationNotification, object: nil, userInfo: [NotificationLocation.location : userLocation])
-    }
-}
+    
 }

@@ -8,6 +8,6 @@
 
 import Foundation
 struct URLManager {
-    static var  cafeURL = "https://cafenomad.tw/api/v1.2/cafes"
+    static var cafeURL = "https://cafenomad.tw/api/v1.2/cafes"
     
 }
