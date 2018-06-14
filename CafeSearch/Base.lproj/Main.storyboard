@@ -794,18 +794,13 @@
             <objects>
                 <viewController storyboardIdentifier="MapVC" id="ft7-9b-3qu" customClass="MapModeViewController" customModule="CafeSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AIM-X4-ebO">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="563"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="coffeeBG" translatesAutoresizingMaskIntoConstraints="NO" id="U2R-H6-qVE">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="563"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pcd-xq-Q9r" customClass="GMSMapView">
-                                <rect key="frame" x="16" y="38" width="343" height="474"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tfk-YH-erW" customClass="CornerButton" customModule="CafeSearch" customModuleProvider="target">
                                 <rect key="frame" x="231" y="520" width="128" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -817,11 +812,22 @@
                                     <action selector="findNearestCafeAction:" destination="ft7-9b-3qu" eventType="touchUpInside" id="zVc-xw-cjS"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pcd-xq-Q9r" customClass="GMSMapView">
+                                <rect key="frame" x="19" y="22.5" width="337.5" height="478.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="pcd-xq-Q9r" firstAttribute="centerX" secondItem="CV9-E8-B0k" secondAttribute="centerX" id="ERS-8q-fUv"/>
+                            <constraint firstItem="pcd-xq-Q9r" firstAttribute="top" secondItem="AIM-X4-ebO" secondAttribute="bottom" multiplier="0.04" id="NfU-AH-NYw"/>
+                            <constraint firstItem="pcd-xq-Q9r" firstAttribute="height" secondItem="AIM-X4-ebO" secondAttribute="height" multiplier="0.85" id="jPx-YA-3QR"/>
+                            <constraint firstItem="pcd-xq-Q9r" firstAttribute="width" secondItem="AIM-X4-ebO" secondAttribute="width" multiplier="0.9" id="lJ8-Kd-boG"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="CV9-E8-B0k"/>
                     </view>
                     <navigationItem key="navigationItem" id="ulE-qm-r8Q"/>
+                    <size key="freeformSize" width="375" height="563"/>
                     <connections>
                         <outlet property="backgroundImageView" destination="U2R-H6-qVE" id="0jq-tS-QMc"/>
                         <outlet property="mapView" destination="pcd-xq-Q9r" id="Wfp-Kq-ZF8"/>
@@ -829,18 +835,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zp8-uW-AeB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1904.8" y="-2524.5877061469268"/>
+            <point key="canvasLocation" x="1904.8" y="-2481.4092953523241"/>
         </scene>
         <!--List View Controller-->
         <scene sceneID="z9v-Xe-JUC">
             <objects>
                 <viewController storyboardIdentifier="ListVC" id="oc8-KB-GvT" customClass="ListViewController" customModule="CafeSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZJA-F9-Bw7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="563"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="100" translatesAutoresizingMaskIntoConstraints="NO" id="C07-wO-NOt">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="10" width="375" height="563"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <searchBar key="tableHeaderView" contentMode="redraw" id="Exl-IM-tfO">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -889,14 +895,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="C07-wO-NOt" firstAttribute="top" secondItem="ZJA-F9-Bw7" secondAttribute="top" id="A1L-Ml-rLU"/>
-                            <constraint firstItem="C07-wO-NOt" firstAttribute="trailing" secondItem="MbM-M4-oAd" secondAttribute="trailing" id="Fuq-ZV-2l7"/>
-                            <constraint firstItem="C07-wO-NOt" firstAttribute="bottom" secondItem="MbM-M4-oAd" secondAttribute="bottom" id="Tba-oJ-7C9"/>
-                            <constraint firstItem="C07-wO-NOt" firstAttribute="leading" secondItem="MbM-M4-oAd" secondAttribute="leading" id="Xap-FR-0jV"/>
+                            <constraint firstItem="C07-wO-NOt" firstAttribute="centerY" secondItem="ZJA-F9-Bw7" secondAttribute="centerY" constant="10" id="Bwd-V5-UdI"/>
+                            <constraint firstItem="C07-wO-NOt" firstAttribute="centerX" secondItem="ZJA-F9-Bw7" secondAttribute="centerX" id="OSr-nz-9xy"/>
+                            <constraint firstItem="C07-wO-NOt" firstAttribute="width" secondItem="ZJA-F9-Bw7" secondAttribute="width" id="Uje-Rr-BMb"/>
+                            <constraint firstItem="C07-wO-NOt" firstAttribute="height" secondItem="ZJA-F9-Bw7" secondAttribute="height" id="j7D-p3-ism"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MbM-M4-oAd"/>
                     </view>
                     <navigationItem key="navigationItem" id="sne-fO-dRg"/>
+                    <size key="freeformSize" width="375" height="563"/>
                     <connections>
                         <outlet property="cafeListTableView" destination="C07-wO-NOt" id="szl-dJ-RBd"/>
                         <outlet property="searchBar" destination="Exl-IM-tfO" id="ndl-uf-XbG"/>
@@ -905,7 +912,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UL9-ks-mmK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2692" y="-2524"/>
+            <point key="canvasLocation" x="2664.8000000000002" y="-2477.8110944527739"/>
         </scene>
         <!--Cafe Detail View Controller-->
         <scene sceneID="ahC-o5-1hk">
@@ -1008,7 +1015,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ufy-nL-uoW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3616.8000000000002" y="-2525.4872563718145"/>
+            <point key="canvasLocation" x="3623" y="-2478"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="AOx-OI-bIc">

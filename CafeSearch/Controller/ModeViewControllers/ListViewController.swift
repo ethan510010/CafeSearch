@@ -240,10 +240,20 @@ class ListViewController: UIViewController {
         self.locationManager = CLLocationManager()
         self.locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager?.delegate = self
+        
+        
+        
 //        self.sendAPIRequest()
         //回來時在把searchbar隱藏取消掉
 //        self.searchController.searchBar.isHidden = false
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("CafeListVCTableView高",self.cafeListTableView.frame.height)
+    }
+
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

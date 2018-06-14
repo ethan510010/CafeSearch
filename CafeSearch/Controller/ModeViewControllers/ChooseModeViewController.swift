@@ -44,10 +44,12 @@ class ChooseModeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         bgImageView.layer.opacity = 1
         self.locationManager = CLLocationManager()
         self.locationManager?.delegate = self
         self.locationManager?.requestWhenInUseAuthorization()
+        self.scrollView.contentSize = CGSize(width: self.view.frame.width * 2, height: self.view.frame.height * (563/667))
         self.scrollView.delegate = self
         self.scrollView.showsVerticalScrollIndicator = false
         self.scrollView.showsHorizontalScrollIndicator = false
@@ -66,7 +68,7 @@ class ChooseModeViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        self.scrollView.contentSize = CGSize(width: self.view.frame.width * 2, height: self.view.frame.height * (563/667))
+        
         //        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         //        //把mapVC加進去
         //        let mapVC = mainStoryboard.instantiateViewController(withIdentifier: StoryboardIDManager.mapVC) as! MapModeViewController
@@ -78,9 +80,17 @@ class ChooseModeViewController: UIViewController {
         //        self.addChildViewController(listVC)
         //        self.scrollView.addSubview(listVC.view)
         //        listVC.didMove(toParentViewController: self)
+        
+        var frameOfMapVC = mapVC.view.frame
+        frameOfMapVC.size = CGSize(width: scrollView.contentSize.width / 2, height: self.view.frame.height * (563/667))
+        mapVC.view.frame = frameOfMapVC
+        
+        
         var frameOfListVC = listVC.view.frame
+        frameOfListVC.size = CGSize(width: scrollView.contentSize.width / 2, height: self.view.frame.height * (563/667))
         frameOfListVC.origin.x = self.view.frame.width
         listVC.view.frame = frameOfListVC
+        print("ListVC的大小",listVC.view.frame.height)
     }
     
 //    override func viewWillLayoutSubviews() {
