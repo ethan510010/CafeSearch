@@ -34,17 +34,25 @@ class CafeDetailViewController: UIViewController {
             UIApplication.shared.openURL(URL(string:
                 "comgooglemaps-x-callback://?saddr=\(userLocation.coordinate.latitude),\(userLocation.coordinate.longitude)&daddr=\(cafeLocation.latitude),\(cafeLocation.longitude)&directionsmode=driving&x-success=sourceapp://?resume=true&x-source=SourceApp")!)
         } else {
-            let alert = UIAlertController(title: "找不到Google Maps應用程式", message: "請確認您是否已安裝Google Maps應用程式", preferredStyle: .alert)
-            let action = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-            let goAppStoreAction = UIAlertAction(title: "下載Google Maps", style: .default) { (action) in
-                guard let url = URL(string: "https://itunes.apple.com/US/app/google-maps-gps-navigation/id585027354?mt=8") else {return}
-                if UIApplication.shared.canOpenURL(url){
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                }
-            }
-            alert.addAction(action)
-            alert.addAction(goAppStoreAction)
-            self.present(alert, animated: true, completion: nil)
+            let customAlertVC = CustomAlertViewController()
+            customAlertVC.providesPresentationContextTransitionStyle = true
+            customAlertVC.definesPresentationContext = true
+            customAlertVC.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            customAlertVC.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+            customAlertVC.alertDelegate = self
+            self.present(customAlertVC, animated: true, completion: nil)
+//            let alert = UIAlertController(title: "找不到Google Maps應用程式", message: "請確認您是否已安裝Google Maps應用程式", preferredStyle: .alert)
+//            let action = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+            //到appStore下載Google Maps
+//            let goAppStoreAction = UIAlertAction(title: "下載Google Maps", style: .default) { (action) in
+//                guard let url = URL(string: "https://itunes.apple.com/US/app/google-maps-gps-navigation/id585027354?mt=8") else {return}
+//                if UIApplication.shared.canOpenURL(url){
+//                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//                }
+//            }
+//            alert.addAction(action)
+//            alert.addAction(goAppStoreAction)
+//            self.present(alert, animated: true, completion: nil)
         }
     }
     
@@ -97,4 +105,19 @@ class CafeDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
+}
+
+extension CafeDetailViewController: AlertViewButtonTappedDelegate{
+    func goAppStoreButtonDidTapped() {
+        guard let url = URL(string: "https://itunes.apple.com/US/app/google-maps-gps-navigation/id585027354?mt=8") else {return}
+        if UIApplication.shared.canOpenURL(url){
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
+    func cancelButtonDidTapped() {
+        print("按下取消按鈕")
+    }
+    
+    
 }

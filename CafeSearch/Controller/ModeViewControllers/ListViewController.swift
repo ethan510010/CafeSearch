@@ -87,7 +87,7 @@ class ListViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-//        self.cafeListTableView.contentInset = UIEdgeInsetsMake(0, 0, 560, 0)
+        self.cafeListTableView.contentInset = UIEdgeInsetsMake(0, 0, (self.navigationController?.navigationBar.frame.height)!, 0)
 //        self.cafeListTableView.frame.size = CGSize(width: self.view.frame.width, height: self.view.frame.height)
 //        self.view.layoutIfNeeded()
     }
