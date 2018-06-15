@@ -14,7 +14,8 @@ class APIManager{
 
     func fetchCafe(url:String, completion: @escaping ([Cafe]?)->Void){
         guard let url = URL(string: url) else {return}
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+        let urlRequest = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
+        let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
             if error != nil{
                 print(error!.localizedDescription)
                 return

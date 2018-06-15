@@ -14,6 +14,8 @@ class ListViewController: UIViewController {
     @IBOutlet weak var cafeListTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    //設定activity Indicator
+    var activityIndicator:UIActivityIndicatorView!
     
     var distanceDic = [String:Double]()
     var cafeArray:[Cafe]?
@@ -51,6 +53,11 @@ class ListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //設定activityIndicator
+        self.activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        activityIndicator.center = self.view.center
+        self.view.addSubview(activityIndicator)
+        self.activityIndicator.startAnimating()
         
         cafeListTableView.delegate = self
         cafeListTableView.dataSource = self
@@ -108,6 +115,10 @@ class ListViewController: UIViewController {
     func sendAPIRequest(){
         APIManager.shared.fetchCafe(url: URLManager.cafeURL + "/\(self.currentCity)") { (cafes) in
             self.cafeArray = cafes
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.hidesWhenStopped = true
+            }
             var cafeDistances = self.cafeArray?.map({ (cafe) -> (Cafe?, CLLocationDistance) in
                 if let cafeLatitude = CLLocationDegrees(cafe.latitude), let cafeLongitude = CLLocationDegrees(cafe.longitude), let userLocation = self.currentLocation{
                     let cafeLocation = CLLocation(latitude: cafeLatitude, longitude: cafeLongitude)

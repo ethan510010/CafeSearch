@@ -940,12 +940,12 @@
                         <constraints>
                             <constraint firstItem="MbM-M4-oAd" firstAttribute="bottom" secondItem="5wg-YA-uoF" secondAttribute="bottom" id="3qh-i1-tgH"/>
                             <constraint firstItem="5wg-YA-uoF" firstAttribute="top" secondItem="ZJA-F9-Bw7" secondAttribute="top" id="9RX-GN-QLo"/>
-                            <constraint firstItem="C07-wO-NOt" firstAttribute="leading" secondItem="MbM-M4-oAd" secondAttribute="leading" id="A2r-Tn-AEn"/>
+                            <constraint firstItem="C07-wO-NOt" firstAttribute="leading" secondItem="ZJA-F9-Bw7" secondAttribute="leading" id="A2r-Tn-AEn"/>
                             <constraint firstItem="C07-wO-NOt" firstAttribute="top" secondItem="ZJA-F9-Bw7" secondAttribute="top" id="Nf8-P5-6WF"/>
-                            <constraint firstItem="C07-wO-NOt" firstAttribute="bottom" secondItem="MbM-M4-oAd" secondAttribute="bottom" id="VsJ-mi-ejn"/>
+                            <constraint firstItem="C07-wO-NOt" firstAttribute="bottom" secondItem="ZJA-F9-Bw7" secondAttribute="bottom" id="VsJ-mi-ejn"/>
                             <constraint firstItem="5wg-YA-uoF" firstAttribute="leading" secondItem="ZJA-F9-Bw7" secondAttribute="leading" id="dxj-as-HC9"/>
                             <constraint firstItem="MbM-M4-oAd" firstAttribute="trailing" secondItem="5wg-YA-uoF" secondAttribute="trailing" id="eUJ-HU-FHj"/>
-                            <constraint firstItem="C07-wO-NOt" firstAttribute="trailing" secondItem="MbM-M4-oAd" secondAttribute="trailing" id="nzL-TU-JVF"/>
+                            <constraint firstItem="C07-wO-NOt" firstAttribute="trailing" secondItem="ZJA-F9-Bw7" secondAttribute="trailing" id="nzL-TU-JVF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MbM-M4-oAd"/>
                     </view>

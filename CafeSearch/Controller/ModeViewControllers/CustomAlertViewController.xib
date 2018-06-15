@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,9 +24,8 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6oT-wp-lfV">
-                    <rect key="frame" x="47" y="223" width="280" height="210"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6oT-wp-lfV">
+                    <rect key="frame" x="47" y="228.5" width="280" height="210"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="找不到Google Maps App" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IGL-Ag-imp">
                             <rect key="frame" x="26" y="22" width="228" height="24"/>
@@ -68,6 +68,12 @@
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="6oT-wp-lfV" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="OYP-9G-kO9"/>
+                <constraint firstItem="6oT-wp-lfV" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="280:375" id="R2m-4A-S3P"/>
+                <constraint firstItem="6oT-wp-lfV" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="aV7-Ar-8Yc"/>
+                <constraint firstItem="6oT-wp-lfV" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="210:667" id="eW1-lu-fMU"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="24.5" y="51.5"/>
         </view>
