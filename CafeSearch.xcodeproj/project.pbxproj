@@ -44,6 +44,8 @@
 		D6E6811920A464EC00A7CCC2 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E6811820A464EC00A7CCC2 /* ListViewController.swift */; };
 		D6F202A020A488EF00EC640F /* CafeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F2029F20A488EF00EC640F /* CafeListCell.swift */; };
 		D6F202A220A48E9800EC640F /* PostcodeIntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F202A120A48E9800EC640F /* PostcodeIntExtension.swift */; };
+		D6FFD4C920D3B27B00FF388B /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FFD4C720D3B27B00FF388B /* CustomAlertViewController.swift */; };
+		D6FFD4CA20D3B27B00FF388B /* CustomAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6FFD4C820D3B27B00FF388B /* CustomAlertViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +89,8 @@
 		D6E6811820A464EC00A7CCC2 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		D6F2029F20A488EF00EC640F /* CafeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeListCell.swift; sourceTree = "<group>"; };
 		D6F202A120A48E9800EC640F /* PostcodeIntExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostcodeIntExtension.swift; sourceTree = "<group>"; };
+		D6FFD4C720D3B27B00FF388B /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
+		D6FFD4C820D3B27B00FF388B /* CustomAlertViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomAlertViewController.xib; sourceTree = "<group>"; };
 		F83608E008F0BBFE1371C6DF /* Pods-CafeSearch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CafeSearch.release.xcconfig"; path = "Pods/Target Support Files/Pods-CafeSearch/Pods-CafeSearch.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -232,6 +236,8 @@
 				D6E6811820A464EC00A7CCC2 /* ListViewController.swift */,
 				D6C9DE1120A037FF00763239 /* PresentResetConditionViewController.swift */,
 				D66924CC20A7DCF400BEC618 /* CafeDetailViewController.swift */,
+				D6FFD4C720D3B27B00FF388B /* CustomAlertViewController.swift */,
+				D6FFD4C820D3B27B00FF388B /* CustomAlertViewController.xib */,
 			);
 			path = ModeViewControllers;
 			sourceTree = "<group>";
@@ -306,6 +312,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6FFD4CA20D3B27B00FF388B /* CustomAlertViewController.xib in Resources */,
 				D6C03900209B4E8300CA391A /* LaunchScreen.storyboard in Resources */,
 				D6C038FD209B4E8300CA391A /* Assets.xcassets in Resources */,
 				D6C038FB209B4E8100CA391A /* Main.storyboard in Resources */,
@@ -368,6 +375,7 @@
 				D6377FC8209E92F500403442 /* SegueKey.swift in Sources */,
 				D6E6811920A464EC00A7CCC2 /* ListViewController.swift in Sources */,
 				D697E64720A087D800CB0933 /* ResetConditionTableViewCell.swift in Sources */,
+				D6FFD4C920D3B27B00FF388B /* CustomAlertViewController.swift in Sources */,
 				D6BBF7C0209FF111008EC740 /* GoogleMapKeyManager.swift in Sources */,
 				D6F202A020A488EF00EC640F /* CafeListCell.swift in Sources */,
 				D6C0390B209B522900CA391A /* CafeTableViewCell.swift in Sources */,

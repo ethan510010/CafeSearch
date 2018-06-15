@@ -65,10 +65,15 @@ class ListViewController: UIViewController {
         searchBar.delegate = self
         searchBar.placeholder = "搜尋店名"
         //1. searchBar的樣式
-        searchBar.barStyle = .blackTranslucent
-        searchBar.layer.cornerRadius = 10
-//        searchBar.barTintColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
-        searchBar.layer.masksToBounds = true
+        searchBar.tintColor = UIColor.white
+        searchBar.barTintColor = UIColor.clear
+        if let searchField = searchBar.value(forKey: "searchField") as? UITextField{
+            searchField.backgroundColor = UIColor.black
+            searchField.layer.cornerRadius = 10
+            searchField.layer.borderColor = UIColor.white.cgColor
+            searchField.layer.borderWidth = 2
+            searchField.layer.masksToBounds = true
+        }
         //初始化SearchController，並將結果顯示在同一頁，所以後面傳入nil
         //        searchController = UISearchController(searchResultsController: nil)
         //         搜尋時是否使用燈箱效果 (會將畫面變暗以集中搜尋焦點)
@@ -82,7 +87,9 @@ class ListViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.view.layoutIfNeeded()
+//        self.cafeListTableView.contentInset = UIEdgeInsetsMake(0, 0, 560, 0)
+//        self.cafeListTableView.frame.size = CGSize(width: self.view.frame.width, height: self.view.frame.height)
+//        self.view.layoutIfNeeded()
     }
     
     @objc func getConditionAndCityNotification(notification:Notification){
@@ -263,6 +270,8 @@ class ListViewController: UIViewController {
         print("CafeListVCTableView高",self.cafeListTableView.frame.height)
     }
     
+    
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

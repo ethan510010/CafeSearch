@@ -15,6 +15,7 @@ struct NotificationLocation {
 
 class ChooseModeViewController: UIViewController {
     
+    var screenBounds = UIScreen.main.bounds
     
     @IBAction func searchConditionAction(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: SegueManager.performSearchConditionVC, sender: nil)
@@ -44,12 +45,12 @@ class ChooseModeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        scrollView.isScrollEnabled = false
         bgImageView.layer.opacity = 1
         self.locationManager = CLLocationManager()
         self.locationManager?.delegate = self
         self.locationManager?.requestWhenInUseAuthorization()
-        self.scrollView.contentSize = CGSize(width: self.view.frame.width * 2, height: self.view.frame.height * (560/667))
+        
         self.scrollView.delegate = self
         self.scrollView.showsVerticalScrollIndicator = false
         self.scrollView.showsHorizontalScrollIndicator = false
@@ -83,6 +84,7 @@ class ChooseModeViewController: UIViewController {
         //        self.scrollView.addSubview(listVC.view)
         //        listVC.didMove(toParentViewController: self)
         
+        self.scrollView.contentSize = CGSize(width: self.view.frame.width * 2, height: self.view.frame.height * (560/667))
         var frameOfMapVC = mapVC.view.frame
 //        frameOfMapVC.size = CGSize(width: scrollView.contentSize.width / 2, height: self.view.frame.height * (563/667))
         frameOfMapVC.size = CGSize(width: scrollView.contentSize.width/2, height: scrollView.contentSize.height)

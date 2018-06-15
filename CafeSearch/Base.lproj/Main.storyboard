@@ -761,16 +761,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="fnV-DT-Lom" firstAttribute="centerY" secondItem="LAf-D3-Hxz" secondAttribute="centerY" id="0xa-tx-gj9"/>
+                            <constraint firstItem="IKW-YU-KMD" firstAttribute="bottom" secondItem="LAf-D3-Hxz" secondAttribute="bottom" id="7uD-Mh-WHZ"/>
                             <constraint firstItem="fnV-DT-Lom" firstAttribute="width" secondItem="oF3-S1-UgQ" secondAttribute="width" id="CQJ-n7-3EG"/>
-                            <constraint firstItem="IKW-YU-KMD" firstAttribute="height" secondItem="oF3-S1-UgQ" secondAttribute="height" multiplier="560:667" id="LZG-d5-ePD"/>
                             <constraint firstItem="iIq-OI-LdQ" firstAttribute="top" secondItem="LAf-D3-Hxz" secondAttribute="top" constant="5" id="MQD-H3-oIV"/>
-                            <constraint firstItem="IKW-YU-KMD" firstAttribute="trailing" secondItem="LAf-D3-Hxz" secondAttribute="trailing" id="Oby-PN-C58"/>
                             <constraint firstItem="fnV-DT-Lom" firstAttribute="height" secondItem="oF3-S1-UgQ" secondAttribute="height" id="RWt-eZ-wAd"/>
+                            <constraint firstItem="IKW-YU-KMD" firstAttribute="height" secondItem="oF3-S1-UgQ" secondAttribute="height" multiplier="560:667" id="WnU-N5-sHe"/>
                             <constraint firstItem="iIq-OI-LdQ" firstAttribute="centerX" secondItem="oF3-S1-UgQ" secondAttribute="centerX" id="X9v-Vr-uSM"/>
                             <constraint firstItem="iIq-OI-LdQ" firstAttribute="width" secondItem="oF3-S1-UgQ" secondAttribute="width" multiplier="0.8" id="XWH-nt-HCK"/>
                             <constraint firstItem="fnV-DT-Lom" firstAttribute="centerX" secondItem="LAf-D3-Hxz" secondAttribute="centerX" id="YrL-ap-1zk"/>
-                            <constraint firstItem="IKW-YU-KMD" firstAttribute="bottom" secondItem="LAf-D3-Hxz" secondAttribute="bottom" id="ohD-ac-VrY"/>
-                            <constraint firstItem="IKW-YU-KMD" firstAttribute="leading" secondItem="LAf-D3-Hxz" secondAttribute="leading" id="rfM-Dz-j8v"/>
+                            <constraint firstItem="IKW-YU-KMD" firstAttribute="leading" secondItem="LAf-D3-Hxz" secondAttribute="leading" id="ZnA-9I-VeG"/>
+                            <constraint firstItem="IKW-YU-KMD" firstAttribute="trailing" secondItem="LAf-D3-Hxz" secondAttribute="trailing" id="lvR-Gn-Oru"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LAf-D3-Hxz"/>
                     </view>
@@ -917,12 +917,12 @@
                         <constraints>
                             <constraint firstItem="MbM-M4-oAd" firstAttribute="bottom" secondItem="5wg-YA-uoF" secondAttribute="bottom" id="3qh-i1-tgH"/>
                             <constraint firstItem="5wg-YA-uoF" firstAttribute="top" secondItem="ZJA-F9-Bw7" secondAttribute="top" id="9RX-GN-QLo"/>
-                            <constraint firstItem="C07-wO-NOt" firstAttribute="trailing" secondItem="MbM-M4-oAd" secondAttribute="trailing" id="UMx-iR-Uom"/>
-                            <constraint firstItem="C07-wO-NOt" firstAttribute="leading" secondItem="MbM-M4-oAd" secondAttribute="leading" id="Uyg-DD-vSu"/>
+                            <constraint firstItem="C07-wO-NOt" firstAttribute="leading" secondItem="MbM-M4-oAd" secondAttribute="leading" id="A2r-Tn-AEn"/>
+                            <constraint firstItem="C07-wO-NOt" firstAttribute="top" secondItem="ZJA-F9-Bw7" secondAttribute="top" id="Nf8-P5-6WF"/>
+                            <constraint firstItem="C07-wO-NOt" firstAttribute="bottom" secondItem="MbM-M4-oAd" secondAttribute="bottom" id="VsJ-mi-ejn"/>
                             <constraint firstItem="5wg-YA-uoF" firstAttribute="leading" secondItem="ZJA-F9-Bw7" secondAttribute="leading" id="dxj-as-HC9"/>
                             <constraint firstItem="MbM-M4-oAd" firstAttribute="trailing" secondItem="5wg-YA-uoF" secondAttribute="trailing" id="eUJ-HU-FHj"/>
-                            <constraint firstItem="C07-wO-NOt" firstAttribute="height" secondItem="ZJA-F9-Bw7" secondAttribute="height" id="gdF-eY-o6H"/>
-                            <constraint firstItem="MbM-M4-oAd" firstAttribute="bottom" secondItem="C07-wO-NOt" secondAttribute="bottom" id="h11-9S-Nee"/>
+                            <constraint firstItem="C07-wO-NOt" firstAttribute="trailing" secondItem="MbM-M4-oAd" secondAttribute="trailing" id="nzL-TU-JVF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MbM-M4-oAd"/>
                     </view>
