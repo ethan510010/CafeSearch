@@ -23,22 +23,22 @@ class ListViewController: UIViewController {
     var conditionFromSettingVCDic:[String:String] = [String:String]()
     lazy var searchResult:[Cafe] = []
     //搜尋功能
-//    var searchController:UISearchController!
-//    搜尋後的結果
-//    var searchResults:[Cafe] = []{
-//        didSet{
-//            self.listTableViewReload()
-//        }
-//    }
+    //    var searchController:UISearchController!
+    //    搜尋後的結果
+    //    var searchResults:[Cafe] = []{
+    //        didSet{
+    //            self.listTableViewReload()
+    //        }
+    //    }
     
     //配合搜尋可以進行過濾
-//    func searchFilterContent(for searchText: String){
-//        searchResults = (cafeArray?.filter({ (cafe) -> Bool in
-//            let isMatch = cafe.name.localizedCaseInsensitiveContains(searchText)
-//            return isMatch
-//        }))!
-//    }
-
+    //    func searchFilterContent(for searchText: String){
+    //        searchResults = (cafeArray?.filter({ (cafe) -> Bool in
+    //            let isMatch = cafe.name.localizedCaseInsensitiveContains(searchText)
+    //            return isMatch
+    //        }))!
+    //    }
+    
     //用來RelaodTableView的function
     func listTableViewReload(){
         DispatchQueue.main.async {
@@ -54,6 +54,7 @@ class ListViewController: UIViewController {
         
         cafeListTableView.delegate = self
         cafeListTableView.dataSource = self
+        cafeListTableView.separatorStyle = .none
         //接收一開始定位後的通知
         NotificationCenter.default.addObserver(self, selector: #selector(getLocationForAPI), name: .getLocationNotification, object: nil)
         
@@ -63,16 +64,25 @@ class ListViewController: UIViewController {
         //設定searchBar
         searchBar.delegate = self
         searchBar.placeholder = "搜尋店名"
+        //1. searchBar的樣式
+        searchBar.barStyle = .blackTranslucent
+        searchBar.layer.cornerRadius = 10
+//        searchBar.barTintColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
+        searchBar.layer.masksToBounds = true
         //初始化SearchController，並將結果顯示在同一頁，所以後面傳入nil
-//        searchController = UISearchController(searchResultsController: nil)
-//         搜尋時是否使用燈箱效果 (會將畫面變暗以集中搜尋焦點)
-//        searchController.dimsBackgroundDuringPresentation = false
-//        搜尋時隱藏navigationbar
-//        searchController.hidesNavigationBarDuringPresentation = false
-//        接著把Searchbar加到tableView的Header
-//        cafeListTableView.tableHeaderView = searchController.searchBar
-//        searchController.searchResultsUpdater = self
-        
+        //        searchController = UISearchController(searchResultsController: nil)
+        //         搜尋時是否使用燈箱效果 (會將畫面變暗以集中搜尋焦點)
+        //        searchController.dimsBackgroundDuringPresentation = false
+        //        搜尋時隱藏navigationbar
+        //        searchController.hidesNavigationBarDuringPresentation = false
+        //        接著把Searchbar加到tableView的Header
+        //        cafeListTableView.tableHeaderView = searchController.searchBar
+        //        searchController.searchResultsUpdater = self
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.view.layoutIfNeeded()
     }
     
     @objc func getConditionAndCityNotification(notification:Notification){
@@ -213,7 +223,7 @@ class ListViewController: UIViewController {
                 self.listTableViewReload()
             }
         }
-
+        
     }
     
     @objc func getLocationForAPI(notification:Notification){
@@ -230,7 +240,7 @@ class ListViewController: UIViewController {
                 self.locationManager?.delegate = self
                 self.sendAPIRequest()
             }
-//            self.currentCity = okLocation.
+            //            self.currentCity = okLocation.
             
         }
     }
@@ -243,16 +253,16 @@ class ListViewController: UIViewController {
         
         
         
-//        self.sendAPIRequest()
+        //        self.sendAPIRequest()
         //回來時在把searchbar隱藏取消掉
-//        self.searchController.searchBar.isHidden = false
+        //        self.searchController.searchBar.isHidden = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("CafeListVCTableView高",self.cafeListTableView.frame.height)
     }
-
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -264,44 +274,45 @@ class ListViewController: UIViewController {
 extension ListViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //Case1. 用searchController
-//        if searchController.isActive{
-//            return searchResults.count
-//        }else{
-//            guard let numberOfCafes = self.cafeArray?.count else {return 0}
-//            return numberOfCafes
-//        }
+        //        if searchController.isActive{
+        //            return searchResults.count
+        //        }else{
+        //            guard let numberOfCafes = self.cafeArray?.count else {return 0}
+        //            return numberOfCafes
+        //        }
         //Case2. 不用search功能
-//        guard let numberOfCafes = self.cafeArray?.count else {return 0}
-//        return numberOfCafes
+        //        guard let numberOfCafes = self.cafeArray?.count else {return 0}
+        //        return numberOfCafes
         //Case3. 用searchBar
-         return self.searchResult.count
+        return self.searchResult.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //Case1. 用searchController
-//        let cafe = (searchController.isActive) ? searchResults[indexPath.row]: cafeArray![indexPath.row]
+        //        let cafe = (searchController.isActive) ? searchResults[indexPath.row]: cafeArray![indexPath.row]
         //Case2. 不用搜尋功能
-//        let cafe = self.cafeArray![indexPath.row]
+        //        let cafe = self.cafeArray![indexPath.row]
         //Case3. 用searchBar
         let cafe = self.searchResult[indexPath.row]
         let distance = distanceDic[cafe.id] ?? 0
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifierManager.cafeListCell, for: indexPath) as! CafeListCell
         cell.updateUI(cafe: cafe, distance: distance)
         return cell
+        
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.view.frame.height * (120/617)
+        return self.view.frame.height * (120/560)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //Case3. 用searchBar
         let selectedCafe = self.searchResult[indexPath.row]
         //Case2. 不用search功能
-//        guard let selectedCafe = self.cafeArray?[indexPath.row] else {return}
+        //        guard let selectedCafe = self.cafeArray?[indexPath.row] else {return}
         //Case1. 用searchController
-//        let selectedCafe = (searchController.isActive) ? searchResults[indexPath.row] : self.cafeArray![indexPath.row]
-//        跳轉頁面同時把SearchController的searbar隱藏起來
-//        self.searchController.searchBar.isHidden = true
+        //        let selectedCafe = (searchController.isActive) ? searchResults[indexPath.row] : self.cafeArray![indexPath.row]
+        //        跳轉頁面同時把SearchController的searbar隱藏起來
+        //        self.searchController.searchBar.isHidden = true
         performSegue(withIdentifier: SegueManager.performCafeDetail, sender: selectedCafe)
     }
     
@@ -334,7 +345,7 @@ extension ListViewController: CLLocationManagerDelegate{
                 guard let currentAddress = placemarkArray?.first else {return}
                 guard let currentPostCode = currentAddress.postalCode else {return}
                 let currentCity = currentPostCode.convertPostcodeToRegion(postCode: Int(currentPostCode)!)
-//                self.currentCity = currentCity.lowercased()
+                //                self.currentCity = currentCity.lowercased()
             }
         }
     }

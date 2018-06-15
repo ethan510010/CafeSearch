@@ -11,6 +11,7 @@ import UIKit
 class CafeListCell: UITableViewCell {
     
     
+    @IBOutlet weak var cellBackgroundView: UIView!
     @IBOutlet weak var cafeNameLabel: UILabel!
     @IBOutlet weak var cafeAddressLabel: UILabel!
     @IBOutlet weak var cafeDistanceLabel: UILabel!
@@ -29,6 +30,8 @@ class CafeListCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        cellBackgroundView.layer.cornerRadius = 20
+        cellBackgroundView.layer.masksToBounds = true
         // Initialization code
     }
 

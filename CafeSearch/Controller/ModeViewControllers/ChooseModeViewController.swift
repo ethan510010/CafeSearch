@@ -49,7 +49,7 @@ class ChooseModeViewController: UIViewController {
         self.locationManager = CLLocationManager()
         self.locationManager?.delegate = self
         self.locationManager?.requestWhenInUseAuthorization()
-        self.scrollView.contentSize = CGSize(width: self.view.frame.width * 2, height: self.view.frame.height * (563/667))
+        self.scrollView.contentSize = CGSize(width: self.view.frame.width * 2, height: self.view.frame.height * (560/667))
         self.scrollView.delegate = self
         self.scrollView.showsVerticalScrollIndicator = false
         self.scrollView.showsHorizontalScrollIndicator = false
@@ -64,11 +64,13 @@ class ChooseModeViewController: UIViewController {
         listVC = mainStoryboard.instantiateViewController(withIdentifier: StoryboardIDManager.listVC) as! ListViewController
         self.addChildViewController(listVC)
         self.scrollView.addSubview(listVC.view)
+        listVC.view.setNeedsLayout()
         listVC.didMove(toParentViewController: self)
     }
     
     override func viewDidLayoutSubviews() {
-        
+        super.viewDidLayoutSubviews()
+        print("out")
         //        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         //        //把mapVC加進去
         //        let mapVC = mainStoryboard.instantiateViewController(withIdentifier: StoryboardIDManager.mapVC) as! MapModeViewController
@@ -82,15 +84,19 @@ class ChooseModeViewController: UIViewController {
         //        listVC.didMove(toParentViewController: self)
         
         var frameOfMapVC = mapVC.view.frame
-        frameOfMapVC.size = CGSize(width: scrollView.contentSize.width / 2, height: self.view.frame.height * (563/667))
+//        frameOfMapVC.size = CGSize(width: scrollView.contentSize.width / 2, height: self.view.frame.height * (563/667))
+        frameOfMapVC.size = CGSize(width: scrollView.contentSize.width/2, height: scrollView.contentSize.height)
         mapVC.view.frame = frameOfMapVC
         
         
         var frameOfListVC = listVC.view.frame
-        frameOfListVC.size = CGSize(width: scrollView.contentSize.width / 2, height: self.view.frame.height * (563/667))
+        frameOfListVC.size = CGSize(width: scrollView.contentSize.width / 2, height: scrollView.contentSize.height)
+        
         frameOfListVC.origin.x = self.view.frame.width
         listVC.view.frame = frameOfListVC
+//        listVC.cafeListTableView.contentSize = CGSize(width: self.view.frame.width, height: listVC.view.frame.height)
         print("ListVC的大小",listVC.view.frame.height)
+        print("tableView in main",listVC.cafeListTableView.frame.height)
     }
     
 //    override func viewWillLayoutSubviews() {
