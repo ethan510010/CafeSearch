@@ -30,6 +30,9 @@ class CafeListCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        cafeNameLabel.adjustsFontSizeToFitWidth = true
+        cafeAddressLabel.adjustsFontSizeToFitWidth = true
+        cafeDistanceLabel.adjustsFontSizeToFitWidth = true
         cellBackgroundView.layer.cornerRadius = 20
         cellBackgroundView.layer.masksToBounds = true
         // Initialization code

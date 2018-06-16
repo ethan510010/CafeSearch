@@ -17,6 +17,7 @@ class ResetCityCollectionViewCell: UICollectionViewCell {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.white.cgColor
         self.cityNameLabel.text = city.cityChineseName
+        self.cityNameLabel.adjustsFontSizeToFitWidth = true
         if city.isSelected == true{
             self.appearenceView.backgroundColor = .brown
             self.cityNameLabel.textColor = .white

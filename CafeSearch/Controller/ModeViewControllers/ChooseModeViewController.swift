@@ -82,7 +82,7 @@ class ChooseModeViewController: UIViewController {
         //        let listVC = mainStoryboard.instantiateViewController(withIdentifier: StoryboardIDManager.listVC) as! ListViewController
         //        self.addChildViewController(listVC)
         //        self.scrollView.addSubview(listVC.view)
-        //        listVC.didMove(toParentViewController: self)
+        //        listVC.didMove(toParentViewController: self) * 2
         self.scrollView.contentSize = CGSize(width: self.view.frame.width * 2, height: self.view.frame.height * (560/667) )
         var frameOfMapVC = mapVC.view.frame
 //        frameOfMapVC.size = CGSize(width: scrollView.contentSize.width / 2, height: self.view.frame.height * (563/667))
@@ -96,8 +96,6 @@ class ChooseModeViewController: UIViewController {
         frameOfListVC.origin.x = self.view.frame.width
         listVC.view.frame = frameOfListVC
 //        listVC.cafeListTableView.contentSize = CGSize(width: self.view.frame.width, height: listVC.view.frame.height)
-        print("ListVC的大小",listVC.view.frame.height)
-        print("tableView in main",listVC.cafeListTableView.frame.height)
     }
     
 //    override func viewWillLayoutSubviews() {
