@@ -75,6 +75,7 @@ class ListViewController: UIViewController {
         searchBar.tintColor = UIColor.white
         searchBar.barTintColor = UIColor.clear
         if let searchField = searchBar.value(forKey: "searchField") as? UITextField{
+            searchField.textColor = UIColor.white
             searchField.backgroundColor = UIColor.black
             searchField.layer.cornerRadius = 10
             searchField.layer.borderColor = UIColor.white.cgColor
