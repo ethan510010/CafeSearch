@@ -107,14 +107,18 @@ class MapModeViewController: UIViewController {
             })
             if let cafeDistances = cafeDistances {
                 if self.conditionFromSettingVCDic == [:] || self.conditionFromSettingVCDic == ["安靜程度":"不限","座位多寡":"不限","有無插座":"不限","Wifit品質":"不限"]{
-                    self.cafeArray = cafeDistances.map({ (cafeTuple) -> Cafe in
-                        return cafeTuple.0!
-                    })
+                    self.cafeArray = cafeDistances.map({ (cafeTuple) -> Cafe? in
+                        guard let eachCafe = cafeTuple.0 else { return nil }
+                        return eachCafe
+//                        return cafeTuple.0!
+                    }) as? [Cafe]
                 }else{
                     //避免距離排序亂掉要再存一次
-                    self.cafeArray = cafeDistances.map({ (cafeTuple) -> Cafe in
-                        return cafeTuple.0!
-                    })
+                    self.cafeArray = cafeDistances.map({ (cafeTuple) -> Cafe? in
+                        guard let eachCafe = cafeTuple.0 else {return nil}
+                        return eachCafe
+//                        return cafeTuple.0!
+                    }) as? [Cafe]
                     //篩選條件
                     self.conditionFromSettingVCDic.forEach({ (conditionKey,conditionValue) in
                         if conditionValue != "不限"{
