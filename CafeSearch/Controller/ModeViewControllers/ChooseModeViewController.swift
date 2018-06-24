@@ -83,7 +83,7 @@ class ChooseModeViewController: UIViewController {
         //        self.addChildViewController(listVC)
         //        self.scrollView.addSubview(listVC.view)
         //        listVC.didMove(toParentViewController: self) * 2
-        self.scrollView.contentSize = CGSize(width: self.view.frame.width * 2, height: (self.view.frame.height * 560/667))
+        self.scrollView.contentSize = CGSize(width: self.view.frame.width * 2, height: self.scrollView.frame.height)
         var frameOfMapVC = mapVC.view.frame
 //        frameOfMapVC.size = CGSize(width: scrollView.contentSize.width / 2, height: self.view.frame.height * (563/667))
         frameOfMapVC.size = CGSize(width: scrollView.contentSize.width/2, height: scrollView.contentSize.height)
