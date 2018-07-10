@@ -121,10 +121,12 @@ class ListViewController: UIViewController {
                 self.activityIndicator.hidesWhenStopped = true
             }
             var cafeDistances = self.cafeArray?.map({ (cafe) -> (Cafe?, CLLocationDistance) in
-                if let cafeLatitude = CLLocationDegrees(cafe.latitude), let cafeLongitude = CLLocationDegrees(cafe.longitude), let userLocation = self.currentLocation{
+                guard let cafeLat = cafe.latitude, let cafeLog = cafe.longitude else {fatalError()}
+                if let cafeLatitude = CLLocationDegrees(cafeLat), let cafeLongitude = CLLocationDegrees(cafeLog), let userLocation = self.currentLocation{
                     let cafeLocation = CLLocation(latitude: cafeLatitude, longitude: cafeLongitude)
                     let cafeDistance = cafeLocation.distance(from: userLocation)
-                    self.distanceDic[cafe.id] = cafeDistance
+                    guard let cafeID = cafe.id else {fatalError()}
+                    self.distanceDic[cafeID] = cafeDistance
                     return (cafe, cafeDistance)
                 }else{
                     return (nil,0)
@@ -164,7 +166,8 @@ class ListViewController: UIViewController {
                                     })
                                 }else if conditionValue == "優良"{
                                     self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
-                                        if (cafe.wifi) > Double(3){
+                                        guard let wifi = cafe.wifi else {fatalError()}
+                                        if wifi > Double(3){
                                             return true
                                         }else{
                                             return false
@@ -184,7 +187,8 @@ class ListViewController: UIViewController {
                                     })
                                 }else if conditionValue == "優良"{
                                     self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
-                                        if cafe.quiet > Double(3){
+                                        guard let quiet = cafe.quiet else {fatalError()}
+                                        if quiet > Double(3){
                                             return true
                                         }else {
                                             return false
@@ -226,7 +230,8 @@ class ListViewController: UIViewController {
                                     })
                                 }else if conditionValue == "優良"{
                                     self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
-                                        if cafe.seat > Double(3){
+                                        guard let seat = cafe.seat else {fatalError()}
+                                        if seat > Double(3){
                                             return true
                                         }else {
                                             return false
@@ -321,7 +326,8 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource{
         //        let cafe = self.cafeArray![indexPath.row]
         //Case3. 用searchBar
         let cafe = self.searchResult[indexPath.row]
-        let distance = distanceDic[cafe.id] ?? 0
+        guard let cafeID = cafe.id else {return UITableViewCell()}
+        let distance = distanceDic[cafeID] ?? 0
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifierManager.cafeListCell, for: indexPath) as! CafeListCell
         cell.updateUI(cafe: cafe, distance: distance)
         return cell
@@ -392,7 +398,8 @@ extension ListViewController: UISearchBarDelegate{
         }else{
             searchResult = []
             for eachCafe in self.cafeArray!{
-                if eachCafe.name.lowercased().contains(searchText.lowercased()){
+                guard let eachCafeName = eachCafe.name else {return}
+                if eachCafeName.lowercased().contains(searchText.lowercased()){
                     searchResult.append(eachCafe)
                 }
             }

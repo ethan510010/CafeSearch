@@ -27,8 +27,11 @@ class MapModeViewController: UIViewController {
     @IBAction func findNearestCafeAction(_ sender: UIButton) {
         //找出距離最近的咖啡店
         guard let nearestCafe = cafeArray?.first else {return}
-        let nearestCafeLatitude = CLLocationDegrees(nearestCafe.latitude)
-        let nearestCafeLongitude = CLLocationDegrees(nearestCafe.longitude)
+        
+        guard let nearestCafeLat = nearestCafe.latitude, let nearestCafeLog = nearestCafe.longitude else {return}
+        
+        let nearestCafeLatitude = CLLocationDegrees(nearestCafeLat)
+        let nearestCafeLongitude = CLLocationDegrees(nearestCafeLog)
         let nearestCafeLocation = CLLocation(latitude: nearestCafeLatitude!, longitude: nearestCafeLongitude!)
         let nearestCafePosition = CLLocationCoordinate2D(latitude: nearestCafeLatitude!, longitude: nearestCafeLongitude!)
         let nearestCafeDistance = nearestCafeLocation.distance(from: self.currentLocation!)
@@ -93,10 +96,12 @@ class MapModeViewController: UIViewController {
         APIManager.shared.fetchCafe(url: URLManager.cafeURL + "/\(self.currentCity!)") { (cafes) in
             self.cafeArray = cafes
             var cafeDistances = self.cafeArray?.map({ (cafe) -> (Cafe?, CLLocationDistance) in
-                if let cafeLatitude = CLLocationDegrees(cafe.latitude), let cafeLongitude = CLLocationDegrees(cafe.longitude), let userLocation = self.currentLocation{
+                guard let cafeLat = cafe.latitude, let cafeLog = cafe.longitude else {fatalError()}
+                if let cafeLatitude = CLLocationDegrees(cafeLat), let cafeLongitude = CLLocationDegrees(cafeLog), let userLocation = self.currentLocation{
                     let cafeLocation = CLLocation(latitude: cafeLatitude, longitude: cafeLongitude)
                     let cafeDistance = cafeLocation.distance(from: userLocation)
-                    self.distanceDic[cafe.id] = cafeDistance
+                    guard let cafeID = cafe.id else {fatalError()}
+                    self.distanceDic[cafeID] = cafeDistance
                     return (cafe, cafeDistance)
                 }else{
                     return (nil,0)
@@ -136,7 +141,8 @@ class MapModeViewController: UIViewController {
                                     })
                                 }else if conditionValue == "優良"{
                                     self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
-                                        if (cafe.wifi) > Double(3){
+                                        guard let wifiValue = cafe.wifi else {fatalError()}
+                                        if wifiValue > Double(3){
                                             return true
                                         }else{
                                             return false
@@ -156,7 +162,8 @@ class MapModeViewController: UIViewController {
                                     })
                                 }else if conditionValue == "優良"{
                                     self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
-                                        if cafe.quiet > Double(3){
+                                        guard let quietValue = cafe.quiet else {fatalError()}
+                                        if quietValue > Double(3){
                                             return true
                                         }else {
                                             return false
@@ -198,7 +205,8 @@ class MapModeViewController: UIViewController {
                                     })
                                 }else if conditionValue == "優良"{
                                     self.cafeArray = self.cafeArray?.filter({ (cafe) -> Bool in
-                                        if cafe.seat > Double(3){
+                                        guard let seatValue = cafe.seat else {fatalError()}
+                                        if seatValue > Double(3){
                                             return true
                                         }else {
                                             return false
@@ -224,8 +232,9 @@ class MapModeViewController: UIViewController {
         let range = 0...conditionCafesNumber
         for i in range{
             guard let eachCafe = self.cafeArray?[i] else {return}
-            guard let eachCafeLatitude = CLLocationDegrees(eachCafe.latitude) else {return}
-            guard let eachCafeLongitude = CLLocationDegrees(eachCafe.longitude) else {return}
+            guard let eachCafeLat = eachCafe.latitude, let eachCafeLog = eachCafe.longitude else {return}
+            guard let eachCafeLatitude = CLLocationDegrees(eachCafeLat) else {return}
+            guard let eachCafeLongitude = CLLocationDegrees(eachCafeLog) else {return}
             let eachCafeLocation = CLLocationCoordinate2D(latitude: eachCafeLatitude, longitude: eachCafeLongitude)
             let cafeMarker = GMSMarker(position: eachCafeLocation)
             cafeMarker.map = self.mapView

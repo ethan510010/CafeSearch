@@ -81,10 +81,12 @@ class CafeListViewController: UIViewController {
         APIManager.shared.fetchCafe(url: URLManager.cafeURL + "/\(self.cityBeSelectedFromSearchVC)") { (cafeLists) in
             //cafeLists為從網絡抓下來的
             var cafeDistances = cafeLists?.map({ (cafe) -> (Cafe?, CLLocationDistance) in
-                if let cafeLatitude = CLLocationDegrees(cafe.latitude), let cafeLongitude = CLLocationDegrees(cafe.longitude), let userLocation = self.locationFromSearchVC {
+                guard let cafeLat = cafe.latitude, let cafeLog = cafe.longitude else {fatalError()}
+                if let cafeLatitude = CLLocationDegrees(cafeLat), let cafeLongitude = CLLocationDegrees(cafeLog), let userLocation = self.locationFromSearchVC {
                     let cafeLocation = CLLocation(latitude: cafeLatitude, longitude: cafeLongitude)
                     let cafeDistance = cafeLocation.distance(from: userLocation)
-                    self.distanceDic[cafe.id] = cafeDistance
+                    guard let cafeID = cafe.id else {fatalError()}
+                    self.distanceDic[cafeID] = cafeDistance
                     return (cafe, cafeDistance)
                 } else {
                     return (nil, 0)
@@ -141,7 +143,8 @@ class CafeListViewController: UIViewController {
                                 })
                             }else if conditionValue == "優良"{
                                 self.withConditionArray = self.withConditionArray?.filter({ (cafe) -> Bool in
-                                    if (cafe.wifi) > Double(3){
+                                    guard let wifi = cafe.wifi else {fatalError()}
+                                    if wifi > Double(3){
                                         return true
                                     }else{
                                         return false
@@ -163,7 +166,8 @@ class CafeListViewController: UIViewController {
                                 })
                             }else if conditionValue == "優良"{
                                 self.withConditionArray = self.withConditionArray?.filter({ (cafe) -> Bool in
-                                    if (cafe.quiet) > Double(3){
+                                    guard let quiet = cafe.quiet else {fatalError()}
+                                    if quiet > Double(3){
                                         return true
                                     }else{
                                         return false
@@ -207,7 +211,8 @@ class CafeListViewController: UIViewController {
                                 })
                             }else if conditionValue == "優良"{
                                 self.withConditionArray = self.withConditionArray?.filter({ (cafe) -> Bool in
-                                    if (cafe.seat) > Double(3){
+                                    guard let seat = cafe.seat else {fatalError()}
+                                    if seat > Double(3){
                                         return true
                                     }else{
                                         return false
@@ -280,11 +285,13 @@ extension CafeListViewController: UITableViewDelegate, UITableViewDataSource{
         
         if self.conditionDicFromSearchVCorResetConditionVC == [:] || self.conditionDicFromSearchVCorResetConditionVC == ["安靜程度": "不限", "座位多寡": "不限", "有無插座": "不限", "Wifi品質": "不限"]{
             let cafe = self.cafeArray![indexPath.row]
-            let distance = distanceDic[cafe.id] ?? 0
+            guard let cafeID = cafe.id else {return UITableViewCell()}
+            let distance = distanceDic[cafeID] ?? 0
             cell.updateUI(cafe: cafe, distance: distance)
         }else{
             guard let withConditionCafe = self.withConditionArray?[indexPath.row] else {return UITableViewCell()}
-            let withConditionDistance = distanceDic[withConditionCafe.id] ?? 0
+            guard let withConditionCafeID = withConditionCafe.id else {return UITableViewCell()}
+            let withConditionDistance = distanceDic[withConditionCafeID] ?? 0
             cell.updateUI(cafe: withConditionCafe, distance: withConditionDistance)
         }
         

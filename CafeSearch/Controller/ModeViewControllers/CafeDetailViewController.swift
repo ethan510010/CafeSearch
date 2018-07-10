@@ -64,8 +64,9 @@ class CafeDetailViewController: UIViewController {
         googleMapView.layer.cornerRadius = googleMapView.frame.width / 10
         googleMapView.layer.masksToBounds = true
         guard let selectedCafe = self.selectedCafeInformationFromCafeListsVC else {return}
-        guard let cafeLatitude = CLLocationDegrees(selectedCafe.latitude) else {return}
-        guard let cafeLogitude = CLLocationDegrees(selectedCafe.longitude) else {return}
+        guard let cafeLat = selectedCafe.latitude, let cafeLog = selectedCafe.longitude else {return}
+        guard let cafeLatitude = CLLocationDegrees(cafeLat) else {return}
+        guard let cafeLogitude = CLLocationDegrees(cafeLog) else {return}
         let camera = GMSCameraPosition.camera(withLatitude: cafeLatitude, longitude: cafeLogitude, zoom: 18.0)
         googleMapView.camera = camera
         //新增大頭針

@@ -18,8 +18,8 @@ class WebViewController: UIViewController {
         let wkWebViewFrame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         let fbWebView = WKWebView(frame: wkWebViewFrame)
         guard let validSelectedCafe = selectedCafeFromCafeListVC else {return}
-        print(validSelectedCafe.url)
-        guard let validFBURL = URL(string: validSelectedCafe.url) else {return}
+        guard let unwrapURL = validSelectedCafe.url else {return}
+        guard let validFBURL = URL(string: unwrapURL) else {return}
         
         let urlRequest = URLRequest(url: validFBURL)
         fbWebView.load(urlRequest)

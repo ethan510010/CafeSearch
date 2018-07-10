@@ -47,8 +47,9 @@ class GoogleMapViewController: UIViewController {
         googleMapView.delegate = self
         
         guard let selectedCafe = self.selectedCafeInformationFromCafeListsVC else { return }
-        guard let cafeLatitude = CLLocationDegrees(selectedCafe.latitude) else {return}
-        guard let cafeLogitude = CLLocationDegrees(selectedCafe.longitude) else {return}
+        guard let selectedCafeLat = selectedCafe.latitude, let selectedCafeLog = selectedCafe.longitude else {return}
+        guard let cafeLatitude = CLLocationDegrees(selectedCafeLat) else {return}
+        guard let cafeLogitude = CLLocationDegrees(selectedCafeLog) else {return}
         
         let camera = GMSCameraPosition.camera(withLatitude: cafeLatitude, longitude: cafeLogitude, zoom: 18.0)
         googleMapView.camera = camera
