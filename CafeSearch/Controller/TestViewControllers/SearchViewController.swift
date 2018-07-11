@@ -90,25 +90,25 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func convertPostcodeToRegion(postCode:Int) -> String{
-        var taipeiRange = 100...120
-        var keelungRange = 200...208
-        var taipeiRange3 = 220...253
-        var lienchiangRange = 209...212
-        var yilanRange = 260...290
-        var hsinchuRange = 300...319
-        var taoyuanRange = 320...340
-        var miaoliRange = 350...369
-        var taichungRange = 400...439
-        var changhuaRange = 500...530
-        var nantouRange = 540...558
-        var chiayiRange = 600...625
-        var yunlinRange = 630...655
-        var tainanRange = 700...745
-        var kaohsiungRange = 800...852
-        var penghuRange = 880...885
-        var pingtungRange = 900...947
-        var taitungRange = 950...966
-        var hualienRange = 970...983
+        let taipeiRange = 100...120
+        let keelungRange = 200...208
+        let taipeiRange3 = 220...253
+        let lienchiangRange = 209...212
+        let yilanRange = 260...290
+        let hsinchuRange = 300...319
+        let taoyuanRange = 320...340
+        let miaoliRange = 350...369
+        let taichungRange = 400...439
+        let changhuaRange = 500...530
+        let nantouRange = 540...558
+        let chiayiRange = 600...625
+        let yunlinRange = 630...655
+        let tainanRange = 700...745
+        let kaohsiungRange = 800...852
+        let penghuRange = 880...885
+        let pingtungRange = 900...947
+        let taitungRange = 950...966
+        let hualienRange = 970...983
         switch postCode {
         case taipeiRange, taipeiRange3:
             return "taipei"

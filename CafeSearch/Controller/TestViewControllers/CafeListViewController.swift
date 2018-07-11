@@ -318,10 +318,8 @@ extension CafeListViewController: UITableViewDelegate, UITableViewDataSource{
 extension CafeListViewController: WhichCafeFBButtonDidTappedDelegate{
     func whichFBButtonDidTapped(index: IndexPath) {
         if self.conditionDicFromSearchVCorResetConditionVC == [:] || self.conditionDicFromSearchVCorResetConditionVC == ["安靜程度": "不限", "座位多寡": "不限", "有無插座": "不限", "Wifi品質": "不限"]{
-            print(self.cafeArray![index.row].name)
             performSegue(withIdentifier: SegueManager.performFB, sender: self.cafeArray?[index.row])
         }else{
-            print(self.withConditionArray![index.row].name)
             performSegue(withIdentifier: SegueManager.performFB, sender: self.withConditionArray?[index.row])
         }
     }
@@ -334,8 +332,8 @@ extension CafeListViewController: WhichCafeFBButtonDidTappedDelegate{
                 }
             }
             if segue.identifier == SegueManager.performResetConditionVC{
-                guard let resetConditionNavigationController = segue.destination as? UINavigationController else {return}
-                guard let resetConditionVC = resetConditionNavigationController.viewControllers.first as? PresentResetConditionViewController else {return}
+//                guard let resetConditionNavigationController = segue.destination as? UINavigationController else {return}
+//                guard let resetConditionVC = resetConditionNavigationController.viewControllers.first as? PresentResetConditionViewController else {return}
 //                resetConditionVC.delegate = self
             }
             //跳轉到googleMap

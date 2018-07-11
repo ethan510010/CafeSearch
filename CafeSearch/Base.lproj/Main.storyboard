@@ -745,7 +745,7 @@
         <!--咖啡地圖-->
         <scene sceneID="Wx4-Ut-d84">
             <objects>
-                <viewController id="CpC-9g-Obd" customClass="ChooseModeViewController" customModule="CafeSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChooseModeVC" id="CpC-9g-Obd" customClass="ChooseModeViewController" customModule="CafeSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oF3-S1-UgQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -806,7 +806,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e6a-8e-cVT" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="7Sj-B0-Gbl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1137" y="-2481"/>
+            <point key="canvasLocation" x="1136.8" y="-2481.4092953523241"/>
         </scene>
         <!--Map Mode View Controller-->
         <scene sceneID="iHd-O7-vAk">

@@ -64,7 +64,7 @@ class ListViewController: UIViewController {
         cafeListTableView.separatorStyle = .none
         //接收一開始定位後的通知
         NotificationCenter.default.addObserver(self, selector: #selector(getLocationForAPI), name: .getLocationNotification, object: nil)
-        
+       
         //接收傳過來條件與城市通知
         NotificationCenter.default.addObserver(self, selector: #selector(getConditionAndCityNotification), name: .passConditionToMapVCAndListVCNotification, object: nil)
         
@@ -96,8 +96,8 @@ class ListViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.cafeListTableView.contentInset = UIEdgeInsetsMake(0, 0, (self.navigationController?.navigationBar.frame.height)!, 0)
-//        self.cafeListTableView.frame.size = CGSize(width: self.view.frame.width, height: self.view.frame.height)
-//        self.view.layoutIfNeeded()
+        //        self.cafeListTableView.frame.size = CGSize(width: self.view.frame.width, height: self.view.frame.height)
+        //        self.view.layoutIfNeeded()
     }
     
     @objc func getConditionAndCityNotification(notification:Notification){
@@ -140,14 +140,14 @@ class ListViewController: UIViewController {
                     self.cafeArray = cafeDistances.map({ (cafeTuple) -> Cafe? in
                         guard let eachCafe = cafeTuple.0 else { return nil }
                         return eachCafe
-//                        return cafeTuple.0!
+                        //                        return cafeTuple.0!
                     }) as? [Cafe]
                 }else{
                     //避免距離排序亂掉要再存一次
                     self.cafeArray = cafeDistances.map({ (cafeTuple) -> Cafe? in
                         guard let eachCafe = cafeTuple.0 else { return nil }
                         return eachCafe
-//                        return cafeTuple.0!
+                        //                        return cafeTuple.0!
                     }) as? [Cafe]
                     //篩選條件
                     self.conditionFromSettingVCDic.forEach({ (conditionKey,conditionValue) in
@@ -249,7 +249,7 @@ class ListViewController: UIViewController {
                 }
                 guard let cafeArray = self.cafeArray else {return}
                 self.searchResult = cafeArray
-//                self.searchResult = self.cafeArray
+                //                self.searchResult = self.cafeArray
                 self.listTableViewReload()
             }
         }
@@ -294,7 +294,7 @@ class ListViewController: UIViewController {
     }
     
     
-
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -366,8 +366,8 @@ extension ListViewController: CLLocationManagerDelegate{
         if status == .authorizedWhenInUse{
             guard let coordinate = manager.location?.coordinate else {return}
             let userLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-            let userLatitude = userLocation.coordinate.latitude
-            let userLongitude = userLocation.coordinate.longitude
+//            let userLatitude = userLocation.coordinate.latitude
+//            let userLongitude = userLocation.coordinate.longitude
             //使用者現在位置
             self.currentLocation = userLocation
             //把座標轉成地址
@@ -377,7 +377,7 @@ extension ListViewController: CLLocationManagerDelegate{
                 }
                 guard let currentAddress = placemarkArray?.first else {return}
                 guard let currentPostCode = currentAddress.postalCode else {return}
-                let currentCity = currentPostCode.convertPostcodeToRegion(postCode: Int(currentPostCode)!)
+                _ = currentPostCode.convertPostcodeToRegion(postCode: Int(currentPostCode)!)
                 //                self.currentCity = currentCity.lowercased()
             }
         }

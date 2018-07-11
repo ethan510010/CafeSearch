@@ -56,6 +56,7 @@ class MapModeViewController: UIViewController {
         self.locationManager?.requestWhenInUseAuthorization()
         //接收最一開始定位後傳過來的通知
         NotificationCenter.default.addObserver(self, selector: #selector(getLocationForAPI), name: .getLocationNotification, object: nil)
+      
         //接收傳過來的條件與城市通知
         NotificationCenter.default.addObserver(self, selector: #selector(getConditionAndCityNotification), name: .passConditionToMapVCAndListVCNotification, object: nil)
     }
@@ -68,7 +69,6 @@ class MapModeViewController: UIViewController {
                 guard let currentPostCode = currentAddress.postalCode else {return}
                 let currentCity = currentPostCode.convertPostcodeToRegion(postCode: Int(currentPostCode)!)
                 self.currentCity = currentCity
-                print("List VC",self.currentCity)
                 //進行網路請求
                 self.locationManager = CLLocationManager()
                 self.locationManager?.desiredAccuracy = kCLLocationAccuracyBest
@@ -267,7 +267,7 @@ extension MapModeViewController: CLLocationManagerDelegate{
             CLGeocoder().reverseGeocodeLocation(userLocation) { (placemarkArray, error) in
                 guard let currentAddress = placemarkArray?.first else {return}
                 guard let currentPostCode = currentAddress.postalCode else {return}
-                let currentCity = currentPostCode.convertPostcodeToRegion(postCode: Int(currentPostCode)!)
+                _ = currentPostCode.convertPostcodeToRegion(postCode: Int(currentPostCode)!)
 //                self.currentCity = currentCity.lowercased()
             }
         }

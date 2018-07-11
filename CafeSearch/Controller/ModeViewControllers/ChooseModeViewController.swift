@@ -139,8 +139,8 @@ extension ChooseModeViewController: CLLocationManagerDelegate{
                 
                 guard let coordinate = manager.location?.coordinate else {return}
                 let userLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-                let userLatitude = userLocation.coordinate.latitude
-                let userLongitude = userLocation.coordinate.longitude
+                _ = userLocation.coordinate.latitude
+                _ = userLocation.coordinate.longitude
                 self.currentLocation = userLocation
                 //把座標轉成地址
                 CLGeocoder().reverseGeocodeLocation(userLocation) { (placemarkArray, error) in
@@ -148,12 +148,16 @@ extension ChooseModeViewController: CLLocationManagerDelegate{
                     guard let currentPostCode = currentAddress.postalCode else {return}
                     let currentCity = currentPostCode.convertPostcodeToRegion(postCode: Int(currentPostCode)!)
                     self.currentCity = currentCity.lowercased()
-                    print("抓到城市",self.currentCity)
                     //抓到位置後發出通知
+                    
                     NotificationCenter.default.post(name: .getLocationNotification, object: nil, userInfo: [NotificationLocation.location : userLocation])
                 }
             }
         }
+    
+    func passLocationByCallback(completion:(CLLocation?)->Void){
+        completion(self.currentLocation)
+    }
     
 //    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 //        self.locationManager?.requestLocation()
